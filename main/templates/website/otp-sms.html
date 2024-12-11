@@ -1,9 +1,10 @@
+{% load static %}
 <!doctype html>
 <html class="no-js" lang="Fa_IR" dir="rtl">
 
 <head>
     <meta charset="utf-8">
-    <title>قالب شاهان</title>
+    <title>فروشگاه بهزاد</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,26 +13,27 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
-
+    <link rel="apple-touch-icon" sizes="180x180" href='{% static "website/img/apple-touch-icon.png" %}'>
+    <link rel="icon" type="image/png" sizes="32x32" href='{% static "website/img/favicon-32x32.png" %}'>
+    <link rel="icon" type="image/png" sizes="16x16" href='{% static "website/img/favicon-16x16.png" %}'>
+    
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="assets/css/normalize.css">
-    <link rel="stylesheet" href="assets/font/bootstrap-icon/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/js/plugin/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="assets/js/plugin/countdown/countdown.css">
-    <link rel="stylesheet" href="assets/js/plugin/rasta-contact/style.css">
-    <link rel="stylesheet" href="assets/js/plugin/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href='{% static "website/css/normalize.css" %}'>
+    <link rel="stylesheet" href='{% static "website/font/bootstrap-icon/bootstrap-icons.min.css" %}'>
+    <link rel="stylesheet" href='{% static "website/css/bootstrap.min.css" %}'>
+    <link rel="stylesheet" href='{% static "website/js/plugin/swiper/swiper-bundle.min.css" %}'>
+    <link rel="stylesheet" href='{% static "website/js/plugin/countdown/countdown.css" %}'>
+    <link rel="stylesheet" href='{% static "website/js/plugin/rasta-contact/style.css" %}'>
+    <link rel="stylesheet" href='{% static "website/js/plugin/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" %}'>
+    <link rel="stylesheet" href='{% static "website/css/main.css" %}'>
+    <link rel="stylesheet" href='{% static "website/css/responsive.css" %}'>
+    <link rel="stylesheet" href='{% static "website/css/custom.css" %}'>
 
     <meta name="theme-color" content="#f4f5f9">
 </head>
 
-<body style="background: url('assets/img/bg-auth.jpg');background-repeat: no-repeat;background-size: cover">
+<body class="login_body">
 
 
 <!-- start content -->
@@ -46,7 +48,7 @@
 
                             <div class="auth-logo text-center">
                                 <a href="">
-                                    <img src="assets/img/logo.png" width="200" alt="">
+                                    <img src='{% static "website/img/logo.png" %}' width="200" alt="">
                                 </a>
                             </div>
                             <div class="auth-form shadow-xl rounded-3 bg-white">
@@ -106,42 +108,19 @@
 <!-- end content -->
 
 
-
-<script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
-<script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
-<script src="assets/js/vendor/bootstrap.bundle-5.3.2.min.js"></script>
-<script src="assets/js/plugin/swiper/swiper-bundle.min.js"></script>
-<script src="assets/js/plugin/countdown/countdown.js"></script>
-<script src="assets/js/plugin/vanilla-tilt/vanilla-tilt.min.js"></script>
-<script src="assets/js/plugin/rasta-contact/script.js"></script>
-<script src="assets/js/plugin/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
-<script src="assets/js/plugin/otp-sms/otp-input.js"></script>
-<script src="assets/js/plugin/otp-loader/script.js"></script>
-<script src="assets/js/plugins.js"></script>
-<script src="assets/js/main.js"></script>
-
-<!-- Run Countdown Timer Script -->
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        countdown('countdownB', 0, 0, 0, 50);
-    });
-</script>
-<!-- End script -->
-
-
-<!-- otp input callback -->
-
-
-<script>
-    const continueButton = document.querySelector("#submit");
-    continueButton.addEventListener("click", (e) => {
-        updateValue(inputs);
-        alert(OTPValueContainer.value);
-    });
-</script>
-
-<!-- end otp input callback -->
+<script src='{% static "website/js/vendor/modernizr-3.11.2.min.js" %}'></script>
+<script src='{% static "website/js/vendor/jquery-3.7.1.min.js" %}'></script>
+<script src='{% static "website/js/vendor/bootstrap.bundle-5.3.2.min.js" %}'></script>
+<script src='{% static "website/js/plugin/swiper/swiper-bundle.min.js" %}'></script>
+<script src='{% static "website/js/plugin/countdown/countdown.js" %}'></script>
+<script src='{% static "website/js/plugin/vanilla-tilt/vanilla-tilt.min.js" %}'></script>
+<script src='{% static "website/js/plugin/rasta-contact/script.js" %}'></script>
+<script src='{% static "website/js/plugin/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js" %}'></script>
+<script src='{% static "website/js/plugins.js" %}'></script>
+<script src='{% static "website/js/main.js" %}'></script>
+<script src='{% static "website/js/plugin/otp-sms/otp-input.js" %}'></script>
+<script src='{% static "website/js/plugin/otp-loader/script.js" %}'></script>
+<script src='{% static "website/js/custom.js" %}'></script>
 
 </body>
 
