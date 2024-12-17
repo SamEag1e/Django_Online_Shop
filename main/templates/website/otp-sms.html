@@ -33,7 +33,7 @@
     <meta name="theme-color" content="#f4f5f9">
 </head>
 
-<body class="login_body">
+<body class="login_body" id="login-page">
 
 
 <!-- start content -->
@@ -57,7 +57,7 @@
                                 </div>
 
                                 <div class="alert text-center alert-success">
-                                    یک کد برای شما پیامک شد لطفا آن را وارد کنید
+                                    .یک کد برای شما پیامک شد لطفا آن را وارد کنید
                                 </div>
 
                                 <div id="otp-input">
@@ -120,7 +120,9 @@
 <script src='{% static "website/js/main.js" %}'></script>
 <script src='{% static "website/js/plugin/otp-sms/otp-input.js" %}'></script>
 <script src='{% static "website/js/plugin/otp-loader/script.js" %}'></script>
-<script src='{% static "website/js/custom.js" %}'></script>
+<script src='{% static "website/js/otp.js" %}'></script>
+<script src='{% static "website/js/notification.js" %}'></script>
+
 
 </body>
 
