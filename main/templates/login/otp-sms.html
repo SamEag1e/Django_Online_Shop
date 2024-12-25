@@ -1,0 +1,95 @@
+{% extends 'login/base.html' %}
+{% load static %}
+{% block title %}کد یکبارمصرف | فروشگاه بهزاد{% endblock %}
+{% block body_class %}otp_body{% endblock %}
+{% block body_id %}otp-page{% endblock %}
+
+{% block content %}
+    <div class="content vh-100">
+        <div class="container-fluid h-100">
+            <div class="auth h-100 d-flex align-items-center">
+                <div class="container-fluid">
+                    <div class="auth-items">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-4">
+
+                                <div class="auth-logo text-center">
+                                    <a href="">
+                                        <img src='{% static "website/img/logo.png" %}' width="200" alt="">
+                                    </a>
+                                </div>
+                                <div class="auth-form shadow-xl rounded-3 bg-white">
+                                    <div class="auth-form-title mb-4 slider-title-desc-center">
+                                        <h2 class="text-center h4 text-muted title-font">
+                                            {% if "admin" in request.path %}
+                                                ورود سایت ادمین
+                                            {% else %}
+                                                ورود / ثبت نام
+                                            {% endif %}</h2>
+                                    </div>
+
+                                    <div class="alert text-center alert-success">
+                                        یک کد برای شما پیامک شد لطفا آن را وارد کنید
+                                    </div>
+
+                                    <form 
+                                        {% if 'admin' in request.path %}
+                                            action="{% url 'admin_login'%}" 
+                                        {% else %}
+                                            action = "{% url 'customer_login' %}"
+                                        {% endif %}
+                                        method="POST">
+                                        {% csrf_token %}
+
+                                        <div id="otp-input">
+                                            <input placeholder="_" type="number" step="1" min="0" max="9" autocomplete="no" pattern="\d*" name="otp_digit_1" />
+                                            <input placeholder="_" type="number" step="1" min="0" max="9" autocomplete="no" pattern="\d*" name="otp_digit_2" />
+                                            <input placeholder="_" type="number" step="1" min="0" max="9" autocomplete="no" pattern="\d*" name="otp_digit_3" />
+                                            <input placeholder="_" type="number" step="1" min="0" max="9" autocomplete="no" pattern="\d*" name="otp_digit_4" />
+                                            <input placeholder="_" type="number" step="1" min="0" max="9" autocomplete="no" pattern="\d*" name="otp_digit_5" />
+                                            <input placeholder="_" type="number" step="1" min="0" max="9" autocomplete="no" pattern="\d*" name="otp_digit_6" />
+                                            <input id="otp-value" type="hidden" name="otp" />
+                                        </div>
+
+                                        <!-- Countdown timer HTML -->
+                                        <div class="countDownContainer">
+                                            <div 
+                                                id="config"
+                                                {% if 'admin' in request.path %}
+                                                    data-customer-login-url="{% url 'admin_login' %}"
+                                                {% else %}
+                                                    data-customer-login-url="{% url 'customer_login' %}"
+                                                {% endif %}>
+                                            </div>
+
+                                            <div class="countdown-bar" id="countdownB">
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mt-3">
+                                            <button type="submit" id="submit" class="btn btn-success w-100 mt-4 btn-login">وورد به سایت</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                <p class="loginTermsDesc">با ورود و یا ثبت نام در شاهان شما <a class="underlined main-color-one-color fw-bold" href="/rules/">شرایط و قوانین</a> استفاده از سرویس‌های سایت شاهان و <a class="underlined main-color-one-color fw-bold" href="/privacy-polices/">قوانین حریم خصوصی</a> آن را می‌پذیرید.</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block extra_js %}
+    <script src='{% static "website/js/plugin/otp-sms/otp-input.js" %}'></script>
+    <script src='{% static "website/js/plugin/otp-loader/script.js" %}'></script>
+    <script src='{% static "website/js/otp.js" %}'></script>
+{% endblock %}
+

@@ -1,0 +1,90 @@
+{% extends 'login/base.html' %}
+{% load static %}
+
+
+{% block title %}
+    {% if "admin" in request.path %}
+    فروشگاه بهزاد | پنل ادمین
+    {% else %}
+    ورود-ثبت نام | فروشگاه بهزاد
+    {% endif %}
+{% endblock %}
+
+{% block body_class %}login_body{% endblock %}
+{% block body_id %}login-page{% endblock %}
+
+{% block content %}
+    <div class="content vh-100">
+        <div class="container-fluid h-100">
+            <div class="auth h-100 d-flex align-items-center">
+                <div class="container-fluid">
+                    <div class="auth-items">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-4">
+
+                                <div class="auth-logo text-center">
+                                    <a href="">
+                                        <img src="{% static 'website/img/logo.png' %}" width="200" alt="">
+                                    </a>
+                                </div>
+                                <div class="auth-form shadow-xl rounded-3 mt-5 bg-white">
+                                    <div class="auth-form-title mb-4 slider-title-desc-center">
+                                        <h2 class="text-center h4 text-muted title-font">
+                                            {% if "admin" in request.path %}
+                                                ورود سایت ادمین
+                                            {% else %}
+                                                ورود / ثبت نام
+                                            {% endif %}</h2>
+                                    </div>
+                                    <form 
+                                        {% if 'admin' in request.path %}
+                                            action="{% url 'admin_login'%}" 
+                                        {% else %}
+                                            action = "{% url 'customer_login' %}"
+                                        {% endif %}
+                                        method="POST">
+                                        {% csrf_token %}
+                                
+                                        <div class="comment-item mb-3">
+                                        <input
+                                            type="tel"
+                                            name="phone_number"
+                                            class="form-control"
+                                            id="floatingInputPhone"
+                                            placeholder="09123456789"
+                                            {% if request.session.phone_number %}
+                                                value="{{ request.session.phone_number }}"
+                                            {% else %}
+                                                value=""
+                                            {% endif %}
+                                            required
+                                            oninvalid="this.setCustomValidity('شماره موبایل خود را وارد کنید')"
+                                            oninput="this.setCustomValidity('')"
+                                        />
+                                            <label for="floatingInputPhone" class="form-label label-float">شماره موبایل خود را وارد کنید</label>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success w-100 mt-4 btn-login">ورود به سایت</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <p class="loginTermsDesc">
+                                    با ورود و یا ثبت نام در شاهان شما 
+                                    <a class="underlined main-color-one-color fw-bold" href="/rules/">شرایط و قوانین</a> 
+                                    استفاده از سرویس‌های سایت شاهان و 
+                                    <a class="underlined main-color-one-color fw-bold" href="/privacy-polices/">قوانین حریم خصوصی</a> 
+                                    آن را می‌پذیرید.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

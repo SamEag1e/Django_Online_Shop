@@ -20,7 +20,9 @@ function config() {
     $config.timer_font_weight = 700;
     $config.timer_font = 'yekan-bakh';
     $config.timer_font_size = 14;
-    $config.endtime_message = "<a href='' class='span-primary'>درخواست کد جدید</a>";
+    var customerLoginUrl = document.getElementById('config').getAttribute('data-customer-login-url');
+    
+    $config.endtime_message = "<a href='" + customerLoginUrl + "' class='span-primary'>درخواست کد جدید</a>";
 
     return $config;
 }

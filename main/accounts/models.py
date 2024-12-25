@@ -23,7 +23,7 @@ class OTPRequest(models.Model):
     otp_type = models.CharField(max_length=20, choices=OTP_TYPE_CHOICES)
     otp_code = models.CharField(max_length=6, blank=True, null=True)
     otp_attemps = models.PositiveIntegerField(default=0)
-
+    otp_checks = models.PositiveIntegerField(default=0)
     otp_expiry = models.DateTimeField(default=default_otp_expiry)
     otp_attemps_expiry = models.DateTimeField(
         default=default_otp_attemps_expiry

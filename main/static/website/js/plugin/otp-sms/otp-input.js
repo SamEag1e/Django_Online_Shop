@@ -7,7 +7,6 @@ window.addEventListener("load", function () {
     const continueButton = document.querySelector("#submit");
     continueButton.addEventListener("click", (e) => {
         updateValue(inputs);
-        alert(OTPValueContainer.value);
     });
 
     // Focus first input

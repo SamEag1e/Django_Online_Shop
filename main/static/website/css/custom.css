@@ -2,6 +2,10 @@
     background: url('../img/bg-auth.jpg');
     background-repeat: no-repeat;background-size: cover
 }
+.otp_body {
+    background: url('../img/bg-auth.jpg');
+    background-repeat: no-repeat;background-size: cover
+}
 
 .notification-container {
     position: fixed;
@@ -24,7 +28,7 @@
 }
 
 .notification-success {
-    background-color: #28a745;
+    background-color: #2fcf55;
 }
 
 .notification-error {
