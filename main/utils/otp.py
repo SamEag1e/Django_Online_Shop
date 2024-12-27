@@ -2,11 +2,11 @@ import random
 
 from django.utils.timezone import now, timedelta
 
-from .models import OTPRequest
+from accounts.models import OTPRequest
 
 
 # ---------------------------------------------------------------------
-def base_send_otp_validation(phone_number):
+def phone_number_validation(phone_number):
     if not phone_number:
         return False, "شماره موبایل خود را وارد کنید."
 
@@ -24,11 +24,7 @@ def base_send_otp_validation(phone_number):
 
 
 # ---------------------------------------------------------------------
-def send_otp(phone_number, otp_type):
-    is_base_valid, message = base_send_otp_validation(phone_number)
-    if not is_base_valid:
-        return is_base_valid, message
-
+def second_send_otp_validation(phone_number, otp_type):
     otp_request, _ = OTPRequest.objects.get_or_create(
         phone_number=phone_number
     )
@@ -60,6 +56,7 @@ def send_otp(phone_number, otp_type):
 # ---------------------------------------------------------------------
 def verify_otp(phone_number, otp_code, otp_type):
     if not phone_number:
+        print("Verify", phone_number)
         return False, "شماره موبایل خود را وارد کنید."
 
     if not otp_code.isdigit():
