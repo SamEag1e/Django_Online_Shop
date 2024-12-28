@@ -73,6 +73,47 @@ def customer_otp_check(request):
 
 # ---------------------------------------------------------------------
 def profile(request):
+
+    categories = [
+        {"آشپزخانه": ["پارچ", "لیوان", "بشقاب"]},
+        {"تزئینی": ["زیر دسته بندی", "زیر دسته بندی 2"]},
+    ]
+    menu_data = [
+        {
+            "title": "بر اساس دسته بندی",
+            "sub_items": [
+                "آشپزخانه",
+                "تزئینی",
+                "سکسی",
+            ],
+        },
+        {
+            "title": "بر اساس قیمت",
+            "sub_items": [
+                "گوشی تا 2 میلیون",
+                "گوشی تا 5 میلیون",
+                "گوشی تا 10 میلیون",
+                "گوشی تا 12 میلیون",
+                "گوشی تا 15 میلیون",
+            ],
+        },
+        {
+            "title": "بر اساس برند",
+            "sub_items": ["پاشاباغچه", "اون یکی"],
+        },
+        {
+            "title": "بر اساس کشور تولید کننده",
+            "sub_items": ["ایران", "جین"],
+        },
+    ]
+
+    return render(
+        request,
+        "website/website_base.html",
+        context={"categories": categories, "menu_data": menu_data},
+    )
+    if not request.user_is_authenticated:
+        return redirect("customer_login")
     if not request.method == "POST":
         return render(request, "html")
     f_name = request.get("frist_name", None)

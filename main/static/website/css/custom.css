@@ -69,3 +69,7 @@
         opacity: 0;
     }
 }
+
+.footer-phone-number {
+    direction: ltr
+}
