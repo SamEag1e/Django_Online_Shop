@@ -79,82 +79,82 @@ def profile(request):
 # ---------------------------------------------------------------------
 def edit_profile(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile.html")
-    return render(request, "website/panel/profile.html")
+        return render(request, "website/panel/profile-edit.html")
+    return render(request, "website/panel/profile-edit.html")
 
 
 # ---------------------------------------------------------------------
 def alerts(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile.html")
-    return render(request, "website/panel/profile.html")
+        return render(request, "website/panel/alerts.html")
+    return render(request, "website/panel/alerts.html")
 
 
 # ---------------------------------------------------------------------
 def alert_detail(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile.html")
-    return render(request, "website/panel/profile.html")
+        return render(request, "website/panel/alert-detail.html")
+    return render(request, "website/panel/alert-detail.html")
 
 
 # ---------------------------------------------------------------------
 def orders(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile.html")
-    return render(request, "website/panel/profile.html")
+        return render(request, "website/panel/orders.html")
+    return render(request, "website/panel/orders.html")
 
 
 # ---------------------------------------------------------------------
 def order_detail(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile.html")
-    return render(request, "website/panel/profile.html")
+        return render(request, "website/panel/order-detail.html")
+    return render(request, "website/panel/order-detail.html")
 
 
 # ---------------------------------------------------------------------
 def addresses(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile.html")
-    return render(request, "website/panel/profile.html")
+        return render(request, "website/panel/addresses.html")
+    return render(request, "website/panel/addresses.html")
 
 
 # ---------------------------------------------------------------------
 def edit_address(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile.html")
-    return render(request, "website/panel/profile.html")
+        return render(request, "website/panel/address-edit.html")
+    return render(request, "website/panel/address-edit.html")
 
 
 # ---------------------------------------------------------------------
 def create_address(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile.html")
-    return render(request, "website/panel/profile.html")
+        return render(request, "website/panel/address-create.html")
+    return render(request, "website/panel/address-create.html")
 
 
 # ---------------------------------------------------------------------
 def favorites(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile.html")
-    return render(request, "website/panel/profile.html")
+        return render(request, "website/panel/favorites.html")
+    return render(request, "website/panel/favorites.html")
 
 
 # ---------------------------------------------------------------------
 def tickets(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile.html")
-    return render(request, "website/panel/profile.html")
+        return render(request, "website/panel/tickets.html")
+    return render(request, "website/panel/tickets.html")
 
 
 # ---------------------------------------------------------------------
 def ticket_detail(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile.html")
-    return render(request, "website/panel/profile.html")
+        return render(request, "website/panel/ticket-detail.html")
+    return render(request, "website/panel/ticket-detail.html")
 
 
 # ---------------------------------------------------------------------
 def create_ticket(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile.html")
-    return render(request, "website/panel/profile.html")
+        return render(request, "website/panel/ticket-create.html")
+    return render(request, "website/panel/ticket-create.html")
