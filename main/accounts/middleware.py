@@ -1,8 +1,8 @@
 from django.shortcuts import redirect
-from django.urls import resolve, reverse_lazy
+from django.urls import resolve
 
 
-class AdminLoginRequiredMiddleware:
+class CustomerLoginRequiredMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
@@ -13,15 +13,12 @@ class AdminLoginRequiredMiddleware:
         current_url_name = resolver.url_name or ""
 
         if current_url_name in (
-            "admin_login",
-            "admin_otp_check",
-        ) or not path.startswith("/admin/"):
+            "customer_login",
+            "customer_otp_check",
+        ) or not (path.startswith("/auth/") or path.startswith("/user/")):
             return self.get_response(request)
 
         if not request.user.is_authenticated:
-            return redirect("admin_login")
-
-        if not request.user.is_staff:
-            return redirect(reverse_lazy("home"))
+            return redirect("customer_login")
 
         return self.get_response(request)

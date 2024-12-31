@@ -124,3 +124,9 @@ def profile(request):
 # ---------------------------------------------------------------------
 def add_permission(request):
     pass
+
+
+# ---------------------------------------------------------------------
+def test(request):
+    print(request.user.is_authenticated)
+    return {"HELLo"}

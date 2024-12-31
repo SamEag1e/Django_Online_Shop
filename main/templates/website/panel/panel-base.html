@@ -1,0 +1,164 @@
+{% extends "website/website-base.html" %}
+{% load static %}
+{% load custom_tags %}
+{% block title %}
+    | ناحیه کاربری
+{% endblock %}
+{% block bread_crumb %}
+<li class="breadcrumb-item"><a href="#" class="font-14 text-muted-two">خانه</a></li>
+<li class="breadcrumb-item"><a href="#" class="font-14 text-muted-two">فروشگاه</a></li>
+<li class="breadcrumb-item active main-color-one-color font-14 fw-bold" aria-current="page">ناحیه کاربری</li>
+{% endblock %}
+            
+{% block content %}
+<div class="custom-filter d-lg-none d-block">
+    <button class="btn btn-filter-float border-0 main-color-two-bg shadow-box px-4 rounded-3 position-fixed" style="z-index: 999;bottom:80px;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+        <i class="bi bi-list font-20 fw-bold text-white"></i>
+        <span class="d-block font-14 text-white">منو</span>
+    </button>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">منو</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="panel-nav-logo">
+                <a href="" class="text-center d-block mb-3">
+                    <img src="assets/img/logo.png" alt="" class="img-fluid" width="200">
+                </a>
+            </div>
+            <div class="penel-nav">
+                <div class="panel-nav-nav">
+                    <nav class="navbar profile-box-nav">
+                        <ul class="navbar-nav flex-column">
+                            <li class="nav-item {% is_active 'customer_profile' %}">
+                                <a href="{% url 'customer_profile' %}" class="nav-link">
+                                    <i class="bi bi-house-door"></i> پروفایل
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item {% is_active 'orders' 'order_detail' %}">
+                                <a href="{% url 'orders' %}" class="nav-link">
+                                    <i class="bi bi-cart-check"></i> سفارش‌های من
+                                    <span class="badge rounded-pill badge-spn">5</span>
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item {% is_active 'tickets' 'create_ticket' 'ticket_detail' %}">
+                                <a href="{% url 'tickets' %}" class="nav-link">
+                                    <i class="bi bi-question-circle"></i> تیکت‌های من
+                                    <span class="badge rounded-pill badge-spn">5</span>
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item {% is_active 'alerts' 'alert_detail' %}">
+                                <a href="{% url 'alerts' %}" class="nav-link">
+                                    <i class="bi bi-bell"></i> پیام‌ها و اطلاعیه‌ها
+                                    <span class="badge rounded-pill badge-spn">5</span>
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item {% is_active 'favorites' %}">
+                                <a href="{% url 'favorites' %}" class="nav-link">
+                                    <i class="bi bi-heart"></i> محصولات مورد علاقه
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item {% is_active 'addresses' 'edit_address' 'create_address' %}">
+                                <a href="{% url 'addresses' %}" class="nav-link">
+                                    <i class="bi bi-pin-map"></i> آدرس‌های من
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item {% is_active 'edit_profile' %}">
+                                <a href="{% url 'edit_profile' %}" class="nav-link">
+                                    <i class="bi bi-house-door"></i> ویرایش اطلاعات
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item">
+                                <a href="{% url 'customer_logout' %}" class="nav-link">
+                                    <i class="bi bi-arrow-right-square"></i> خروج از حساب کاربری
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel position-relative">
+    <div class="row gy-4">
+        <div class="col-lg-3 d-lg-block d-none">
+            <div class="panel-nav-logo">
+                <a href="" class="text-center d-block mb-3">
+                    <img src="assets/img/logo.png" alt="" class="img-fluid" width="200">
+                </a>
+            </div>
+            <div class="penel-nav">
+                <div class="panel-nav-nav">
+                    <nav class="navbar profile-box-nav">
+                        <ul class="navbar-nav flex-column">
+                            <li class="nav-item {% is_active 'customer_profile' %}">
+                                <a href="{% url 'customer_profile' %}" class="nav-link">
+                                    <i class="bi bi-house-door"></i> پروفایل
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item {% is_active 'orders' 'order_detail' %}">
+                                <a href="{% url 'orders' %}" class="nav-link">
+                                    <i class="bi bi-cart-check"></i> سفارش‌های من
+                                    <span class="badge rounded-pill badge-spn">5</span>
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item {% is_active 'tickets' 'create_ticket' 'ticket_detail' %}">
+                                <a href="{% url 'tickets' %}" class="nav-link">
+                                    <i class="bi bi-question-circle"></i> تیکت‌های من
+                                    <span class="badge rounded-pill badge-spn">5</span>
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item {% is_active 'alerts' 'alert_detail' %}">
+                                <a href="{% url 'alerts' %}" class="nav-link">
+                                    <i class="bi bi-bell"></i> پیام‌ها و اطلاعیه‌ها
+                                    <span class="badge rounded-pill badge-spn">5</span>
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item {% is_active 'favorites' %}">
+                                <a href="{% url 'favorites' %}" class="nav-link">
+                                    <i class="bi bi-heart"></i> محصولات مورد علاقه
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item {% is_active 'addresses' 'edit_address' 'create_address' %}">
+                                <a href="{% url 'addresses' %}" class="nav-link">
+                                    <i class="bi bi-pin-map"></i> آدرس‌های من
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item {% is_active 'edit_profile' %}">
+                                <a href="{% url 'edit_profile' %}" class="nav-link">
+                                    <i class="bi bi-house-door"></i> ویرایش اطلاعات
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item">
+                                <a href="{% url 'customer_logout' %}" class="nav-link">
+                                    <i class="bi bi-arrow-right-square"></i> خروج از حساب کاربری
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        {% block panel_content %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
