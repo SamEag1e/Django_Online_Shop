@@ -1,0 +1,67 @@
+
+.notification-container {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.notification {
+    padding: 16px 24px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1em;
+    box-shadow: 0 8x 8px rgba(0, 0, 0, 0.1);
+    animation: fade-in 0.3s ease-out, fade-out 0.3s ease-in 4s;
+}
+
+.notification-success {
+    background-color: #2fcf55;
+}
+
+.notification-error {
+    background-color: #dc3545;
+}
+
+.notification-info {
+    background-color: #17a2b8;
+}
+
+.notification-warning {
+    background-color: #ffc107;
+}
+.notification {
+    transition: opacity 0.5s ease-out;
+}
+
+.notification.fade {
+    opacity: 0;
+    pointer-events: none;
+}
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.ltr-text {
+    direction: ltr
+}
