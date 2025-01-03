@@ -17,10 +17,19 @@ user_url = [
     path("addresses/", views.addresses, name="addresses"),
     path("edit-address/<int:pk>/", views.edit_address, name="edit_address"),
     path("create-address/", views.create_address, name="create_address"),
+    path("bank-carts/", views.bank_carts, name="bank_carts"),
+    path(
+        "edit-bank-cart/<int:pk>/",
+        views.edit_bank_cart,
+        name="edit_bank_carts",
+    ),
+    path(
+        "create-bank-cart/", views.create_bank_cart, name="create_bank_carts"
+    ),
     path("orders/", views.orders, name="orders"),
     path("order-detail/<int:pk>/", views.order_detail, name="order_detail"),
     path("favorites/", views.favorites, name="favorites"),
-    path("profile/", views.profile, name="home"),
+    path("", views.profile, name="home"),
 ]
 
 urlpatterns = auth_url + user_url

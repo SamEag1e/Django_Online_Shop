@@ -1,6 +1,5 @@
 {% extends "website/website-base.html" %}
-{% load static %}
-{% load custom_tags %}
+
 {% block title %}
     | ناحیه کاربری
 {% endblock %}
@@ -23,69 +22,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <div class="panel-nav-logo">
-                <a href="" class="text-center d-block mb-3">
-                    <img src="{% static 'website/img/logo.png'%}" alt="" class="img-fluid" width="200">
-                </a>
-            </div>
-            <div class="penel-nav">
-                <div class="panel-nav-nav">
-                    <nav class="navbar profile-box-nav">
-                        <ul class="navbar-nav flex-column">
-                            <li class="nav-item {% is_active 'customer_profile' %}">
-                                <a href="{% url 'customer_profile' %}" class="nav-link">
-                                    <i class="bi bi-person-circle"></i> پروفایل
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item {% is_active 'orders' 'order_detail' %}">
-                                <a href="{% url 'orders' %}" class="nav-link">
-                                    <i class="bi bi-bag-check"></i> سفارش‌های من
-                                    <span class="badge rounded-pill badge-spn">5</span>
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item {% is_active 'tickets' 'create_ticket' 'ticket_detail' %}">
-                                <a href="{% url 'tickets' %}" class="nav-link">
-                                    <i class="bi bi-ticket-perforated"></i> تیکت‌های من
-                                    <span class="badge rounded-pill badge-spn">5</span>
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item {% is_active 'alerts' 'alert_detail' %}">
-                                <a href="{% url 'alerts' %}" class="nav-link">
-                                    <i class="bi bi-bell-fill"></i> پیام‌ها و اطلاعیه‌ها
-                                    <span class="badge rounded-pill badge-spn">5</span>
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item {% is_active 'favorites' %}">
-                                <a href="{% url 'favorites' %}" class="nav-link">
-                                    <i class="bi bi-heart-fill"></i> محصولات مورد علاقه
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item {% is_active 'addresses' 'edit_address' 'create_address' %}">
-                                <a href="{% url 'addresses' %}" class="nav-link">
-                                    <i class="bi bi-geo-alt"></i> آدرس‌های من
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item {% is_active 'edit_profile' %}">
-                                <a href="{% url 'edit_profile' %}" class="nav-link">
-                                    <i class="bi bi-pencil-square"></i> ویرایش اطلاعات
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item">
-                                <a href="{% url 'customer_logout' %}" class="nav-link">
-                                    <i class="bi bi-box-arrow-right"></i> خروج از حساب کاربری
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+            {% include 'website/panel/panel-base-nav.html' %}
         </div>
     </div>
 </div>
@@ -93,72 +30,14 @@
 <div class="panel position-relative">
     <div class="row gy-4">
         <div class="col-lg-3 d-lg-block d-none">
-            <div class="panel-nav-logo">
-                <a href="" class="text-center d-block mb-3">
-                    <img src="{% static 'website/img/logo.png'%}" alt="" class="img-fluid" width="200">
-                </a>
-            </div>
-            <div class="penel-nav">
-                <div class="panel-nav-nav">
-                    <nav class="navbar profile-box-nav">
-                        <ul class="navbar-nav flex-column">
-                            <li class="nav-item {% is_active 'customer_profile' %}">
-                                <a href="{% url 'customer_profile' %}" class="nav-link">
-                                    <i class="bi bi-person-circle"></i> پروفایل
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item {% is_active 'orders' 'order_detail' %}">
-                                <a href="{% url 'orders' %}" class="nav-link">
-                                    <i class="bi bi-bag-check"></i> سفارش‌های من
-                                    <span class="badge rounded-pill badge-spn">5</span>
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item {% is_active 'tickets' 'create_ticket' 'ticket_detail' %}">
-                                <a href="{% url 'tickets' %}" class="nav-link">
-                                    <i class="bi bi-ticket-perforated"></i> تیکت‌های من
-                                    <span class="badge rounded-pill badge-spn">5</span>
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item {% is_active 'alerts' 'alert_detail' %}">
-                                <a href="{% url 'alerts' %}" class="nav-link">
-                                    <i class="bi bi-bell-fill"></i> پیام‌ها و اطلاعیه‌ها
-                                    <span class="badge rounded-pill badge-spn">5</span>
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item {% is_active 'favorites' %}">
-                                <a href="{% url 'favorites' %}" class="nav-link">
-                                    <i class="bi bi-heart-fill"></i> محصولات مورد علاقه
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item {% is_active 'addresses' 'edit_address' 'create_address' %}">
-                                <a href="{% url 'addresses' %}" class="nav-link">
-                                    <i class="bi bi-geo-alt"></i> آدرس‌های من
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item {% is_active 'edit_profile' %}">
-                                <a href="{% url 'edit_profile' %}" class="nav-link">
-                                    <i class="bi bi-pencil-square"></i> ویرایش اطلاعات
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item">
-                                <a href="{% url 'customer_logout' %}" class="nav-link">
-                                    <i class="bi bi-box-arrow-right"></i> خروج از حساب کاربری
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+            {% include 'website/panel/panel-base-nav.html' %}
+        </div>
+        <div class="col-lg-9" >
+            <div class="position-sticky top-0">
+                {% block panel_content %}
+                {% endblock %}
             </div>
         </div>
-        {% block panel_content %}
-        {% endblock %}
     </div>
 </div>
 {% endblock %}

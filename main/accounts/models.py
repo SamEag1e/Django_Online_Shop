@@ -64,3 +64,30 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.phone_number
+
+
+# ---------------------------------------------------------------------
+class Address(models.Model):
+    label = models.CharField(max_length=50)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    province = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    address = models.TextField()
+    postal_code = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.address}, {self.city}, {self.province}"
+
+
+# ---------------------------------------------------------------------
+class BankCart(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    cart_number = models.CharField(max_length=16)
+    shaba_number = models.CharField(max_length=26)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Bank cart for {self.user.username} - {self.cart_number}"

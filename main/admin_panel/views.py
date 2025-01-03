@@ -129,4 +129,4 @@ def add_permission(request):
 # ---------------------------------------------------------------------
 def test(request):
     print(request.user.is_authenticated)
-    return {"HELLo"}
+    return render(request, "admin/admin-base.html")
