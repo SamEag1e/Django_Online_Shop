@@ -1,5 +1,5 @@
 {% extends "website/website-base.html" %}
-
+{% load static %}
 {% block title %}
     | ناحیه کاربری
 {% endblock %}
@@ -21,7 +21,7 @@
             <h5 class="offcanvas-title">منو</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
+        <div class="offcanvas-body" id="mobile_user_panel">
             {% include 'website/panel/panel-base-nav.html' %}
         </div>
     </div>
@@ -29,15 +29,18 @@
 
 <div class="panel position-relative">
     <div class="row gy-4">
-        <div class="col-lg-3 d-lg-block d-none">
+        <div class="col-lg-3 d-lg-block d-none" id="desktop_user_panel">
             {% include 'website/panel/panel-base-nav.html' %}
         </div>
         <div class="col-lg-9" >
-            <div class="position-sticky top-0">
+            <div class="position-sticky top-0" id="panel_content">
                 {% block panel_content %}
                 {% endblock %}
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+{% block extra_js %}
+<script src='{% static "website/js/panel.js" %}'></script>
 {% endblock %}

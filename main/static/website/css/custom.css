@@ -83,3 +83,7 @@
 .telegram-icon{
     color: #0088CC !important;
 }
+
+.profile-box-nav ul li:hover {
+    cursor: pointer;
+}
