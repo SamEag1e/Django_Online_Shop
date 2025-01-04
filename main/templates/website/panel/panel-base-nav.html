@@ -8,53 +8,53 @@
     <div class="panel-nav-nav">
         <nav class="navbar profile-box-nav">
             <ul class="navbar-nav flex-column">
-                <li data-url="{% url 'customer_profile' %}" class="nav-item ">
+                <li id="profile" data-url="{% url 'customer_profile' %}" class="nav-item ">
                     <a class="nav-link">
                         <i class="bi bi-person-circle"></i> پروفایل
                     </a>
                 </li>
             
-                <li data-url="{% url 'orders' %}" class="nav-item ">
-                    <a class="nav-link">
+                <li id="orders" class="nav-item ">
+                    <a href="{% url 'orders' %}" href="" class="nav-link">
                         <i class="bi bi-bag-check"></i> سفارش‌های من
                         <span class="badge rounded-pill badge-spn">5</span>
                     </a>
                 </li>
             
-                <li data-url="{% url 'tickets' %}" class="nav-item ">
-                    <a class="nav-link">
+                <li id="tickets" class="nav-item ">
+                    <a href="{% url 'tickets' %}" class="nav-link">
                         <i class="bi bi-ticket-perforated"></i> تیکت‌های من
                         <span class="badge rounded-pill badge-spn">5</span>
                     </a>
                 </li>
             
-                <li data-url="{% url 'alerts' %}" class="nav-item ">
-                    <a class="nav-link">
+                <li id="alerts" class="nav-item ">
+                    <a href="{% url 'alerts' %}" class="nav-link">
                         <i class="bi bi-bell-fill"></i> پیام‌ها و اطلاعیه‌ها
                         <span class="badge rounded-pill badge-spn">5</span>
                     </a>
                 </li>
             
-                <li data-url="{% url 'favorites' %}" class="nav-item ">
-                    <a class="nav-link">
+                <li id="favorites" class="nav-item ">
+                    <a href="{% url 'favorites' %}" class="nav-link">
                         <i class="bi bi-heart-fill"></i> محصولات مورد علاقه
                     </a>
                 </li>
             
-                <li data-url="{% url 'addresses' %}" class="nav-item ">
-                    <a class="nav-link">
+                <li id="addresses" class="nav-item ">
+                    <a href="{% url 'addresses' %}" class="nav-link">
                         <i class="bi bi-geo-alt"></i> آدرس‌های من
                     </a>
                 </li>
 
-                <li data-url="{% url 'bank_carts' %}"class="nav-item ">
-                    <a class="nav-link">
+                <li id="bank-carts" class="nav-item ">
+                    <a href="{% url 'bank_carts' %}" class="nav-link">
                         <i class="bi bi-geo-alt"></i> شماره کارت های من 
                     </a>
                 </li>
             
-                <li data-url="{% url 'edit_profile' %}" class="nav-item ">
-                    <a class="nav-link">
+                <li id="edit-profile" class="nav-item ">
+                    <a href="{% url 'edit_profile' %}" class="nav-link">
                         <i class="bi bi-pencil-square"></i> ویرایش اطلاعات
                     </a>
                 </li>

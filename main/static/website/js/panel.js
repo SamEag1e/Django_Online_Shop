@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     function handleNavClick(navItems) {
         navItems.forEach(function(item) {
+            // Skip the logout item
             if (item.id === 'logout') {
                 return;
             }
@@ -9,13 +10,63 @@ document.addEventListener('DOMContentLoaded', function() {
                 event.preventDefault();
                 event.stopPropagation();
 
-                navItems.forEach(function(nav) {
-                    nav.classList.remove('active');
-                });
+                // Update the URL with the section parameter
+                var sectionId = item.id;
+                var currentUrl = new URL(window.location.href);
+                currentUrl.searchParams.set('section', sectionId);
+                window.history.pushState({ section: sectionId }, '', currentUrl);
 
-                item.classList.add('active');
+                // Load the section content
+                loadSectionContent(sectionId);
+
+                // Update the active state
+                updateActiveState(sectionId);
             });
         });
+    }
+
+    function loadSectionContent(sectionId) {
+        var sectionUrl = document.getElementById(sectionId).querySelector('a').href;
+        fetch(sectionUrl)
+            .then(response => response.text())
+            .then(html => {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, 'text/html');
+                var newContent = doc.querySelector('#panel_content').innerHTML;
+
+                document.getElementById('panel_content').innerHTML = newContent;
+            })
+            .catch(error => {
+                console.error('Error fetching the section content:', error);
+            });
+    }
+
+    function updateActiveState(section) {
+        // Remove 'active' class from all nav items
+        var allNavItems = document.querySelectorAll('.nav-item');
+        allNavItems.forEach(function(nav) {
+            nav.classList.remove('active');
+        });
+
+        // Add 'active' class to the clicked nav item
+        var clickedItems = document.querySelectorAll(`#${section}`);
+        clickedItems.forEach(function(nav) {
+            nav.classList.add('active');
+        });
+    }
+
+    // Set initial active state for both navs
+    function setInitialActiveState(section) {
+        // Default section if not provided or invalid
+        if (!section || document.querySelectorAll(`#${section}`).length === 0) {
+            section = 'profile';
+        }
+
+        // Load the initial section content
+        loadSectionContent(section);
+
+        // Add 'active' class to initial active items
+        updateActiveState(section);
     }
 
     // Mobile nav
@@ -31,4 +82,15 @@ document.addEventListener('DOMContentLoaded', function() {
         var desktopNavItems = desktopNav.querySelectorAll('.nav-item');
         handleNavClick(desktopNavItems);
     }
+
+    // Get the section variable from URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var sectionFromUrl = urlParams.get('section');
+    setInitialActiveState(sectionFromUrl);
+
+    // Handle browser back/forward button events
+    window.addEventListener('popstate', function(event) {
+        var sectionFromUrl = new URLSearchParams(window.location.search).get('section');
+        setInitialActiveState(sectionFromUrl);
+    });
 });

@@ -20,6 +20,7 @@ def customer_logout(request):
 
 # ---------------------------------------------------------------------
 def customer_login(request):
+    # TODO: If user is authenticated => profile or home
     phone_number = request.POST.get("phone_number")
 
     if not request.method == "POST":
@@ -44,6 +45,7 @@ def customer_login(request):
 
 # ---------------------------------------------------------------------
 def customer_otp_check(request):
+    # TODO: If user is authenticated => profile or home
     phone_number = request.session.get("phone_number")
     otp_code = "".join(
         [request.POST.get(f"otp_digit_{i}", "") for i in range(1, 7)]

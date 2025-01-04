@@ -1,11 +1,9 @@
 from django.urls import path
 from . import views
 
-auth_url = [
+urlpatterns = [
     path("login/", views.customer_login, name="customer_login"),
     path("otp/", views.customer_otp_check, name="customer_otp_check"),
-]
-user_url = [
     path("logout/", views.customer_logout, name="customer_logout"),
     path("profile/", views.profile, name="customer_profile"),
     path("edit-profile/", views.edit_profile, name="edit_profile"),
@@ -31,5 +29,3 @@ user_url = [
     path("favorites/", views.favorites, name="favorites"),
     path("", views.profile, name="home"),
 ]
-
-urlpatterns = auth_url + user_url
