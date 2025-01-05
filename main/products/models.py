@@ -1,12 +1,20 @@
 from django.db import models
 from django.utils.text import slugify
 
-from utils.produtcts import primary_image_path, additional_image_path
+from .utils import primary_image_path, additional_image_path
 
 
 # ---------------------------------------------------------------------
 class ProductDetail(models.Model):
     name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+# ---------------------------------------------------------------------
+class ProductMaterial(models.Model):
+    name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
@@ -39,27 +47,16 @@ class ProductionCountry(models.Model):
 
 
 # ---------------------------------------------------------------------
-class ProductMaterial(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
-# ---------------------------------------------------------------------
 class Product(models.Model):
     name = models.CharField(max_length=255)
-    price = models.BigIntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     sku = models.CharField(max_length=50, unique=True)
+    price = models.BigIntegerField()
     quantity = models.PositiveIntegerField(default=0)
     description = models.TextField(blank=True)
     is_active = models.BooleanField(default=True)
     primary_image = models.ImageField(
         upload_to=primary_image_path, blank=True, null=True
     )
-    categories = models.ManyToManyField(Category, related_name="products")
     material = models.ForeignKey(
         ProductMaterial,
         on_delete=models.SET_NULL,
@@ -81,11 +78,8 @@ class Product(models.Model):
         blank=True,
         related_name="products",
     )
-    tags = models.ManyToManyField(
-        Tags,
-        blank=True,
-        related_name="products",
-    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique=True)
     # SEO metadata
     meta_title = models.CharField(max_length=255, blank=True)
@@ -113,7 +107,6 @@ class ProductImage(models.Model):
 
 # ---------------------------------------------------------------------
 class ProductDetailValue(models.Model):
-
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="details"
     )
