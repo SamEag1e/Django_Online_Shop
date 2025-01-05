@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib import messages
 
-from utils.otp import (
+from otps.utils import (
     phone_number_validation,
     second_send_otp_validation,
     verify_otp,

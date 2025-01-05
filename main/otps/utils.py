@@ -2,7 +2,7 @@ import random
 
 from django.utils.timezone import now, timedelta
 
-from accounts.models import OTPRequest
+from .models import OTPRequest
 
 
 # ---------------------------------------------------------------------

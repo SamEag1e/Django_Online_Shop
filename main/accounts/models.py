@@ -1,37 +1,5 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
-from django.utils.timezone import now, timedelta
-
-
-# ---------------------------------------------------------------------
-class OTPRequest(models.Model):
-    # -----------------------------------------------------------------
-    def default_otp_expiry():
-        return now() + timedelta(minutes=5)
-
-    # -----------------------------------------------------------------
-    def default_otp_attemps_expiry():
-        return now() + timedelta(minutes=30)
-
-    OTP_TYPE_CHOICES = [
-        ("customer_login", "Customer Login"),
-        ("admin_login", "Admin Login"),
-        ("admin_register", "Admin Register"),
-        ("password_change", "Password change"),
-    ]
-    phone_number = models.CharField(max_length=15, unique=True)
-    otp_type = models.CharField(max_length=20, choices=OTP_TYPE_CHOICES)
-    otp_code = models.CharField(max_length=6, blank=True, null=True)
-    otp_attemps = models.PositiveIntegerField(default=0)
-    otp_checks = models.PositiveIntegerField(default=0)
-    otp_expiry = models.DateTimeField(default=default_otp_expiry)
-    otp_attemps_expiry = models.DateTimeField(
-        default=default_otp_attemps_expiry
-    )
-
-    # -----------------------------------------------------------------
-    def __str__(self):
-        return f"OTP for {self.phone_number}"
 
 
 # ---------------------------------------------------------------------
@@ -64,30 +32,3 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.phone_number
-
-
-# ---------------------------------------------------------------------
-class Address(models.Model):
-    label = models.CharField(max_length=50)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    province = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    address = models.TextField()
-    postal_code = models.CharField(max_length=20)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.address}, {self.city}, {self.province}"
-
-
-# ---------------------------------------------------------------------
-class BankCart(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    cart_number = models.CharField(max_length=16)
-    shaba_number = models.CharField(max_length=26)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"Bank cart for {self.user.username} - {self.cart_number}"

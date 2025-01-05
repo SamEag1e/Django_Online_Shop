@@ -47,6 +47,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "accounts",
     "admin_panel",
+    "addresses",
+    "bank_carts",
+    "alerts",
+    "tickets",
+    "contact_us",
+    "wishlists",
+    "orders",
+    "otps",
 ]
 
 MIDDLEWARE = [

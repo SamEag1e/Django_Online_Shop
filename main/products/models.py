@@ -13,24 +13,10 @@ class ProductDetail(models.Model):
 
 
 # ---------------------------------------------------------------------
-class Brand(models.Model):
+class ProductBrand(models.Model):
     name = models.CharField(max_length=50)
     logo = models.ImageField(upload_to="brands/logos/", blank=True, null=True)
     description = models.TextField(blank=True)
-    slug = models.SlugField(unique=True)
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
-
-# ---------------------------------------------------------------------
-class Tags(models.Model):
-    name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
@@ -53,30 +39,8 @@ class ProductionCountry(models.Model):
 
 
 # ---------------------------------------------------------------------
-class Material(models.Model):
+class ProductMaterial(models.Model):
     name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
-# ---------------------------------------------------------------------
-class Category(models.Model):
-    name = models.CharField(max_length=50)
-    parent = models.ForeignKey(
-        "self",
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE,
-        related_name="subcategories",
-    )
-    description = models.TextField(blank=True)
-    slug = models.SlugField(unique=True)
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -97,14 +61,14 @@ class Product(models.Model):
     )
     categories = models.ManyToManyField(Category, related_name="products")
     material = models.ForeignKey(
-        Material,
+        ProductMaterial,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="products",
     )
     brand = models.ForeignKey(
-        Brand,
+        ProductBrand,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -168,7 +132,7 @@ class ProductDetailValue(models.Model):
 
 
 # ---------------------------------------------------------------------
-class Collection(models.Model):
+class ProductCollection(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     featured_image = models.ImageField(
