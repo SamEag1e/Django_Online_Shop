@@ -1,34 +1,44 @@
+from mptt.models import MPTTModel, TreeForeignKey
 from django.db import models
-from django.utils.text import slugify
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 
-class Category(models.Model):
+from .utils import get_slug
+
+
+# ---------------------------------------------------------------------
+class Category(MPTTModel):
     name = models.CharField(max_length=50)
-    parent = models.ForeignKey(
+    parent = TreeForeignKey(
         "self",
+        on_delete=models.CASCADE,
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
-        related_name="subcategories",
+        related_name="children",
     )
     description = models.TextField(blank=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(max_length=255, unique=True, blank=True)
 
+    # Required content type but optional object_id
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
+    object_id = models.PositiveIntegerField(null=True, blank=True)
     content_object = GenericForeignKey("content_type", "object_id")
 
+    class MPTTMeta:
+        order_insertion_by = ["name"]
+
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
+        slug = get_slug(self)
+        if Category.objects.filter(slug=slug).exists():
+            raise ValidationError(f"The slug '{slug}' already exists.")
+        self.slug = slug
         super().save(*args, **kwargs)
 
     def __str__(self):
-        # Create a hierarchical representation of the category
-        full_path = [self.name]
-        k = self.parent
-        while k is not None:
-            full_path.append(k.name)
-            k = k.parent
-        return ' -> '.join(full_path[::-1])
+        return " -> ".join(
+            [
+                ancestor.name
+                for ancestor in self.get_ancestors(include_self=True)
+            ]
+        )
