@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     "otps",
     "products",
     "categories",
+    "tags",
+    "rates",
 ]
 
 MIDDLEWARE = [

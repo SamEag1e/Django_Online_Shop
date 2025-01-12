@@ -1,6 +1,10 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.contenttypes.fields import GenericRelation
 
+from categories.models import Category
+from tags.models import Tag
+from rates.models import Rate
 from .utils import primary_image_path, additional_image_path
 
 
@@ -25,11 +29,22 @@ class ProductBrand(models.Model):
     name = models.CharField(max_length=50)
     logo = models.ImageField(upload_to="brands/logos/", blank=True, null=True)
     description = models.TextField(blank=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True, allow_unicode=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.name, allow_unicode=True)
+
+        original_slug = self.slug
+        counter = 1
+        while (
+            ProductBrand.objects.filter(slug=self.slug)
+            .exclude(id=self.id)
+            .exists()
+        ):
+            self.slug = f"{original_slug}-{counter}"
+            counter += 1
+
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -37,7 +52,7 @@ class ProductBrand(models.Model):
 
 
 # ---------------------------------------------------------------------
-class ProductionCountry(models.Model):
+class ProductCountry(models.Model):
     name = models.CharField(max_length=50)
     country_code = models.CharField(max_length=3, blank=True)
     region = models.CharField(max_length=50, blank=True)
@@ -72,22 +87,34 @@ class Product(models.Model):
         related_name="products",
     )
     country = models.ForeignKey(
-        ProductionCountry,
+        ProductCountry,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="products",
     )
+    categories = GenericRelation(Category, related_name="products", blank=True)
+    tags = GenericRelation(Tag, related_name="products", blank=True)
+    rates = GenericRelation(Rate, related_query_name="rates", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True, allow_unicode=True)
     # SEO metadata
     meta_title = models.CharField(max_length=255, blank=True)
     meta_description = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.name, allow_unicode=True)
+
+        original_slug = self.slug
+        counter = 1
+        while (
+            Product.objects.filter(slug=self.slug).exclude(id=self.id).exists()
+        ):
+            self.slug = f"{original_slug}-{counter}"
+            counter += 1
+
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -95,7 +122,7 @@ class Product(models.Model):
 
 
 # ---------------------------------------------------------------------
-class ProductImage(models.Model):
+class ProductAdditionalImage(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="additional_images"
     )
@@ -132,11 +159,22 @@ class ProductCollection(models.Model):
         upload_to="collections/images/", blank=True, null=True
     )
     products = models.ManyToManyField(Product, related_name="collections")
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True, allow_unicode=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.name, allow_unicode=True)
+
+        original_slug = self.slug
+        counter = 1
+        while (
+            ProductCollection.objects.filter(slug=self.slug)
+            .exclude(id=self.id)
+            .exists()
+        ):
+            self.slug = f"{original_slug}-{counter}"
+            counter += 1
+
         super().save(*args, **kwargs)
 
     def __str__(self):

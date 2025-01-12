@@ -18,7 +18,9 @@ class Category(MPTTModel):
         related_name="children",
     )
     description = models.TextField(blank=True)
-    slug = models.SlugField(max_length=255, unique=True, blank=True)
+    slug = models.SlugField(
+        max_length=255, unique=True, blank=True, allow_unicode=True
+    )
 
     # Required content type but optional object_id
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
