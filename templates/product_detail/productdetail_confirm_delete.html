@@ -1,0 +1,7 @@
+<h1>Are you sure you want to delete this Product Detail?</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, Delete</button>
+</form>
+<a href="{% url 'detail_list' %}">Cancel</a>
+

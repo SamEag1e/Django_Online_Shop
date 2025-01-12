@@ -1,0 +1,11 @@
+<h1>Product Details List</h1>
+<a href="{% url 'detail_create' %}">Create New Product Detail</a>
+<ul>
+    {% for detail in details %}
+        <li>
+            {{ detail.name }}
+            <a href="{% url 'detail_update' detail.pk %}">Edit</a> |
+            <a href="{% url 'detail_delete' detail.pk %}">Delete</a>
+        </li>
+    {% endfor %}
+</ul>

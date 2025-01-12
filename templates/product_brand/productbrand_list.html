@@ -1,0 +1,23 @@
+<h1>Product Brands</h1>
+
+<p><a href="{% url 'brand_create' %}">Create New Brand</a></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for brand in brands %}
+            <tr>
+                <td>{{ brand.name }}</td>
+                <td>
+                    <a href="{% url 'brand_update' brand.pk %}">Update</a> |
+                    <a href="{% url 'brand_delete' brand.pk %}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

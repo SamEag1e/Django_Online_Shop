@@ -1,0 +1,11 @@
+<h1>{% if object %}Update Brand{% else %}Create New Brand{% endif %}</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if form %}
+        {{ form.as_p }}
+    {% endif %}
+    <button type="submit">Save</button>
+</form>
+<br>
+<p><a href="{% url 'brand_list' %}">Back to Brand List</a></p>
