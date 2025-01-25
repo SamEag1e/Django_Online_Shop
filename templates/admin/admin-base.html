@@ -171,6 +171,12 @@
 			<ul id="navigationProducts">
 				<li class="navigation-divider">محصولات</li>
 				<li>
+					<a href="{% url 'product_list' %}">محصول</a>
+				</li>
+				<li>
+					<a href="{% url 'category_tree' %}">دسته بندی</a>
+				</li>
+				<li>
 					<a href="{% url 'brand_list' %}">برند</a>
 				</li>
 				<li>
@@ -181,15 +187,6 @@
 				</li>
 				<li>
 					<a href="{% url 'detail_list' %}">جزئیات محصول</a>
-				</li>
-				<li>
-					<a href="{% url 'category_tree' %}">دسته بندی</a>
-				</li>
-				<li>
-					<a href="calendar.html">محصول</a>
-				</li>
-				<li>
-					<a href="gallery.html">گالری</a>
 				</li>
 			</ul>
 			<ul id="navigationOrders">
