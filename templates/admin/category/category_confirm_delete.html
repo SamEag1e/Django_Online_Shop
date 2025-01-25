@@ -4,11 +4,11 @@
 {% block card_title %} حذف دسته بندی{% endblock%}
 {% block panel_content %}
 
-<h1>آیا از حذف این دسته بندی مطمئن هستید؟</h1>
+<h1>آیا از حذف این دسته بندی مطمئن هستید؟ " {{object.name}} "</h1>
 <form method="post">
     {% csrf_token %}
-    <button type="submit">Confirm</button>
+    <button type="submit" class="btn btn-danger p-2 m-2">حذف</button>
 </form>
-<a href="{% url 'category_tree' %}">بازگشت به لیست</a>
+<a href="{% url 'category_tree' %}" class="btn btn-primary p-2 m-2">بازگشت </a>
 
 {% endblock %}

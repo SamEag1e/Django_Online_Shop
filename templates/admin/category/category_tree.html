@@ -2,7 +2,7 @@
 <ul class="rm-item-menu">
     {% if is_root %}
     <li>
-        <a href="{% url 'category_create' %}" class="btn btn-primary nestable-category-create p-2">افزودن دسته بندی اصلی</a>
+        <a href="{% url 'category_create' %}" class="btn btn-primary p-2 m-2">افزودن دسته بندی اصلی</a>
     </li>
     {% endif %}
     {% for node in category_tree %}
@@ -40,7 +40,7 @@
 {% elif is_root %}
 <div>
     <p>هیچ دسته بندی پیدا نشد.</p>
-    <a href="{% url 'category_create' %}" class="btn btn-primary nestable-category-create">
+    <a href="{% url 'category_create' %}" class="btn btn-primary p-2 m-2">
         افزودن دسته بندی اصلی
     </a>
 </div>
