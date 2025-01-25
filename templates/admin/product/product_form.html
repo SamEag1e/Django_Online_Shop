@@ -1,0 +1,38 @@
+{% extends "admin/admin-base.html" %}
+{% block title %}| محصولات{% endblock %}
+{% block inner_title %} محصولات{% endblock %}
+{% block card_title %}محصولات{% endblock%}
+{% block panel_content %}
+
+<h1>{% if form.instance.pk %}Edit Product{% else %}Create Product{% endif %}</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <h2>Additional Images</h2>
+    {{ image_formset.management_form }}
+    {% for form in image_formset %}
+        <div>
+            {{ form.as_p }}
+            {% if form.instance.pk %}
+                <input type="checkbox" name="{{ form.prefix }}-DELETE"> Delete
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <h2>Detail Values</h2>
+    {{ detail_formset.management_form }}
+    {% for form in detail_formset %}
+        <div>
+            {{ form.as_p }}
+            {% if form.instance.pk %}
+                <input type="checkbox" name="{{ form.prefix }}-DELETE"> Delete
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-secondary p-2 m-2">ذخیره</button>
+</form>
+<a href="{% url 'product_list' %}" class="btn btn-primary p-2 m-2">بازگشت</a>
+ 
+{% endblock %}
