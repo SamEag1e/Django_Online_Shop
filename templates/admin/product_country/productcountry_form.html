@@ -1,11 +1,14 @@
-<h1>{% if object %}Update Brand{% else %}Create New Brand{% endif %}</h1>
+{% extends "admin/admin-base.html" %}
+{% block title %}| کشور تولید کننده {% endblock %}
+{% block inner_title %} کشور محصولات {% endblock %}
+{% block card_title %}کشور{% endblock%}
+{% block panel_content %}
 
-<form method="post" enctype="multipart/form-data">
+<form method="post">
     {% csrf_token %}
-    {% if form %}
-        {{ form.as_p }}
-    {% endif %}
-    <button type="submit">Save</button>
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-secondary p-2 m-2">ذخیره</button>
 </form>
-<br>
-<p><a href="{% url 'brand_list' %}">Back to Brand List</a></p>
+<a href="{% url 'country_list' %}" class="btn btn-primary p-2 m-2">بازگشت</a>
+ 
+{% endblock %}

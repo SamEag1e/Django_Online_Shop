@@ -1,8 +1,14 @@
-<h1>Are you sure you want to delete the brand "{{ object.name }}"?</h1>
+{% extends "admin/admin-base.html" %}
+{% block title %}| برند محصولات {% endblock %}
+{% block inner_title %} برند محصولات {% endblock %}
+{% block card_title %} حذف برند{% endblock%}
+{% block panel_content %}
 
+<h1>آیا از حذف این برند مطمئن هستید؟ " {{object.name}} "</h1>
 <form method="post">
     {% csrf_token %}
-    <button type="submit">Confirm Deletion</button>
+    <button type="submit" class="btn btn-danger p-2 m-2">حذف</button>
 </form>
-<br>
-<p><a href="{% url 'brand_list' %}">Back to Brand List</a></p>
+<a href="{% url 'brand_list' %}" class="btn btn-primary p-2 m-2">بازگشت </a>
+
+{% endblock %}

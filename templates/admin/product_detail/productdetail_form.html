@@ -1,6 +1,14 @@
-<h1>{% if object %}Edit{% else %}Create{% endif %} Product Detail</h1>
+{% extends "admin/admin-base.html" %}
+{% block title %}| جزئیات محصولات {% endblock %}
+{% block inner_title %} جزئیات محصولات {% endblock %}
+{% block card_title %}جزئیات{% endblock%}
+{% block panel_content %}
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save</button>
+    <button type="submit" class="btn btn-secondary p-2 m-2">ذخیره</button>
 </form>
+<a href="{% url 'detail_list' %}" class="btn btn-primary p-2 m-2">بازگشت </a>
+
+{% endblock %}

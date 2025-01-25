@@ -1,23 +1,32 @@
-<h1>Product Brands</h1>
+{% extends "admin/admin-base.html" %}
+{% block title %}| کشور تولید کننده {% endblock %}
+{% block inner_title %} کشور محصولات {% endblock %}
+{% block card_title %}کشورها{% endblock%}
+{% block panel_content %}
 
-<p><a href="{% url 'brand_create' %}">Create New Brand</a></p>
+<p><a href="{% url 'country_create' %}" class="btn btn-primary p-2 m-2">افزودن کشور جدید</a></p>
 
 <table>
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Actions</th>
+            <th>نام</th>
+            <th>عملیات</th>
         </tr>
     </thead>
     <tbody>
-        {% for brand in brands %}
+        {% for country in countries %}
             <tr>
-                <td>{{ brand.name }}</td>
+                <td>{{ country.name }}</td>
                 <td>
-                    <a href="{% url 'brand_update' brand.pk %}">Update</a> |
-                    <a href="{% url 'brand_delete' brand.pk %}">Delete</a>
+                    <a class="action-link" href="{% url 'country_update' country.pk %}" title="تغییر">
+                        <i class="icon ti-pencil-alt"></i>
+                    </a>
+                    <a class="action-link" href="{% url 'country_delete' country.pk %}" title="حذف">
+                        <i class="icon ti-trash"></i>
+                    </a>
                 </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
+{% endblock %}

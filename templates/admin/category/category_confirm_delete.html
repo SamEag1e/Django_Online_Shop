@@ -4,7 +4,7 @@
 {% block card_title %} حذف دسته بندی{% endblock%}
 {% block panel_content %}
 
-<h1>آیا از حذف این دسته بندی مطمئن هستید؟ " {{object.name}} "</h1>
+<h1>آیا از حذف این دسته بندی مطمئن هستید؟ " {{object}} "</h1>
 <form method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger p-2 m-2">حذف</button>

@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Delete Material</title>
-</head>
-<body>
-    <h1>Are you sure you want to delete "{{ object.name }}"?</h1>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Confirm Delete</button>
-        <a href="{% url 'material_list' %}">Cancel</a>
-    </form>
-</body>
-</html>
+{% extends "admin/admin-base.html" %}
+{% block title %}| جنس محصولات {% endblock %}
+{% block inner_title %} جنس محصولات {% endblock %}
+{% block card_title %}حذف جنس{% endblock%}
+{% block panel_content %}
+
+<h1>آیا از حذف این جنس مطمئن هستید؟ " {{object.name}} "</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger p-2 m-2">حذف</button>
+</form>
+<a href="{% url 'material_list' %}" class="btn btn-primary p-2 m-2">بازگشت </a>
+
+{% endblock %}

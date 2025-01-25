@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create/Update Product Material</title>
-</head>
-<body>
-    <h1>{{ view.object|default:"Create New Material" }}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
-</body>
-</html>
+{% extends "admin/admin-base.html" %}
+{% block title %}| جنس محصولات {% endblock %}
+{% block inner_title %} جنس محصولات {% endblock %}
+{% block card_title %}جنس{% endblock%}
+{% block panel_content %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-secondary p-2 m-2">ذخیره</button>
+</form>
+<a href="{% url 'material_list' %}" class="btn btn-primary p-2 m-2">بازگشت </a>
+
+{% endblock %}

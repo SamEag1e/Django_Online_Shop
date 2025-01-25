@@ -1,7 +1,15 @@
-<h1>Are you sure you want to delete this Product Detail?</h1>
+{% extends "admin/admin-base.html" %}
+{% block title %}| جزئیات محصولات {% endblock %}
+{% block inner_title %} جزئیات محصولات {% endblock %}
+{% block card_title %}حذف جزئیات{% endblock%}
+{% block panel_content %}
+
+<h1>آیا از حذف این جزئیات مطمئن هستید؟ " {{object.name}} "</h1>
+
 <form method="post">
     {% csrf_token %}
-    <button type="submit">Yes, Delete</button>
+    <button type="submit" class="btn btn-danger p-2 m-2">حذف</button>
 </form>
-<a href="{% url 'detail_list' %}">Cancel</a>
+<a href="{% url 'detail_list' %}" class="btn btn-primary p-2 m-2">بازگشت </a>
 
+{% endblock %}

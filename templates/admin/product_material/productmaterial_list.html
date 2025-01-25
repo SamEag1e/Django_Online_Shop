@@ -1,19 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Product Materials</title>
-</head>
-<body>
-    <h1>Product Materials</h1>
-    <a href="{% url 'material_create' %}">Create New Material</a>
-    <ul>
+{% extends "admin/admin-base.html" %}
+{% block title %}| جنس محصولات {% endblock %}
+{% block inner_title %} جنس محصولات {% endblock %}
+{% block card_title %}جنس ها{% endblock%}
+{% block panel_content %}
+
+<p><a href="{% url 'material_create' %}" class="btn btn-primary p-2 m-2">افزودن جنس جدید</a></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>نام</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for material in materials %}
-        <li>
-            {{ material.name }}
-            <a href="{% url 'material_update' material.pk %}">Update</a>
-            <a href="{% url 'material_delete' material.pk %}">Delete</a>
-        </li>
+            <tr>
+                <td>{{ material.name }}</td>
+                <td>
+                    <a class="action-link" href="{% url 'material_update' material.pk %}" title="تغییر">
+                        <i class="icon ti-pencil-alt"></i>
+                    </a>
+                    <a class="action-link" href="{% url 'material_delete' material.pk %}" title="حذف">
+                        <i class="icon ti-trash"></i>
+                    </a>
+                </td>
+            </tr>
         {% endfor %}
-    </ul>
-</body>
-</html>
+    </tbody>
+</table>
+
+{% endblock %}

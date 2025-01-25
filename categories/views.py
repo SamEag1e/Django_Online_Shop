@@ -69,6 +69,13 @@ class ProductCategoryCreateView(CreateView):
             form.instance.parent = Category.objects.get(pk=parent_id)
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        parent_id = self.request.GET.get("parent")
+        if parent_id:
+            context["parent"] = Category.objects.get(pk=parent_id)
+        return context
+
     def get_success_url(self):
         return reverse("category_tree")
 
