@@ -1,21 +1,14 @@
 {% extends "admin/admin-base.html" %}
 {% block title %}| دسته بندی محصولات {% endblock %}
 {% block inner_title %} دسته بندی محصولات {% endblock %}
+{% block card_title %} دسته بندی{% endblock%}
 {% block panel_content %}
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">دسته بندی</div>
-            <div class="card-body">
-                <h1>{{ view.title }}</h1>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit">Save</button>
-                </form>
-                <a href="{% url 'category_tree' %}">Back to List</a>
-            </div>
-        </div>
-    </div>
-</div>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ذخیره</button>
+</form>
+<a href="{% url 'category_tree' %}">بازگشت به لیست</a>
+ 
 {% endblock %}

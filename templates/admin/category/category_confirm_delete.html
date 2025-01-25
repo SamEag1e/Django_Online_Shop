@@ -1,20 +1,14 @@
 {% extends "admin/admin-base.html" %}
 {% block title %}| دسته بندی محصولات {% endblock %}
 {% block inner_title %} دسته بندی محصولات {% endblock %}
+{% block card_title %} حذف دسته بندی{% endblock%}
 {% block panel_content %}
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">حذف دسته بندی</div>
-            <div class="card-body">
-                <h1>Are you sure you want to delete this category?</h1>
-                <form method="post">
-                    {% csrf_token %}
-                    <button type="submit">Confirm</button>
-                </form>
-                <a href="{% url 'category_tree' %}">Back to List</a>
-            </div>
-        </div>
-    </div>
-</div>
+
+<h1>آیا از حذف این دسته بندی مطمئن هستید؟</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm</button>
+</form>
+<a href="{% url 'category_tree' %}">بازگشت به لیست</a>
+
 {% endblock %}
