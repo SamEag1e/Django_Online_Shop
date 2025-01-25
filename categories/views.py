@@ -36,7 +36,7 @@ def build_category_tree(parent=None, app_label="products", model="product"):
 
 # ---------------------------------------------------------------------
 class ProductCategoryTreeView(TemplateView):
-    template_name = "categories/category_tree.html"
+    template_name = "admin/category/category_list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -49,7 +49,7 @@ class ProductCategoryTreeView(TemplateView):
 class ProductCategoryCreateView(CreateView):
     model = Category
     fields = ["name", "description"]
-    template_name = "categories/category_form.html"
+    template_name = "admin/category/category_form.html"
 
     def get_initial(self):
         initial = super().get_initial()
@@ -77,7 +77,7 @@ class ProductCategoryCreateView(CreateView):
 class ProductCategoryUpdateView(UpdateView):
     model = Category
     fields = ["name", "description"]
-    template_name = "categories/category_form.html"
+    template_name = "admin/category/category_form.html"
 
     def form_valid(self, form):
         product_content_type = ContentType.objects.get(
@@ -94,7 +94,7 @@ class ProductCategoryUpdateView(UpdateView):
 # ---------------------------------------------------------------------
 class ProductCategoryDeleteView(DeleteView):
     model = Category
-    template_name = "categories/category_confirm_delete.html"
+    template_name = "admin/category/category_confirm_delete.html"
 
     def get_success_url(self):
         return reverse("category_tree")

@@ -1,0 +1,15 @@
+{% extends "admin/admin-base.html" %}
+{% block title %}| دسته بندی محصولات {% endblock %}
+{% block inner_title %} دسته بندی محصولات {% endblock %}
+{% block panel_content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">دسته بندی</div>
+            <div class="card-body">
+                {% include "admin/category/category_tree.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

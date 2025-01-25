@@ -6,16 +6,16 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>پنل ادمین {% block title%} {% endblock %}</title>
+	<title>پنل ادمین {% block title %} {% endblock %}</title>
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="{% static 'admin/assets/media/image/favicon.png' %}">
-
-	<!-- Theme Color -->
 	<meta name="theme-color" content="#5867dd">
 	<link rel="stylesheet" href="{% static 'admin/vendors/bundle.css' %}" type="text/css">
 	<link rel="stylesheet" href="{% static 'admin/assets/css/app.css' %}" type="text/css">
     <link rel="stylesheet" href='{% static "admin/assets/css/custom.css" %}'>
+	{% block extra_css %} 
+	{% endblock %}
 </head>
 
 <body class="small-navigation">
@@ -65,6 +65,11 @@
 				<li  data-toggle="tooltip" title="کاربران">
 					<a href="#navigationUsers" title="کاربران">
 						<i class="icon ti-id-badge"></i>
+					</a>
+				</li>
+				<li  data-toggle="tooltip" title="تخفیف">
+					<a href="#navigationDiscount" title="تخفیف">
+						<i class="icon ti-gift"></i>
 					</a>
 				</li>
 				<li  data-toggle="tooltip" title="وبلاگ">
@@ -166,19 +171,22 @@
 			<ul id="navigationProducts">
 				<li class="navigation-divider">محصولات</li>
 				<li>
-					<a href="chat.html">برند</a>
+					<a href="{% url 'brand_list' %}">برند</a>
 				</li>
 				<li>
-					<a href="inbox.html">دسته بندی</a>
+					<a href="{% url 'country_list' %}">کشور تولید کننده</a>
 				</li>
 				<li>
-					<a href="inbox.html">جزئیات محصول</a>
+					<a href="{% url 'material_list' %}">جنس</a>
+				</li>
+				<li>
+					<a href="{% url 'detail_list' %}">جزئیات محصول</a>
+				</li>
+				<li>
+					<a href="{% url 'category_tree' %}">دسته بندی</a>
 				</li>
 				<li>
 					<a href="calendar.html">محصول</a>
-				</li>
-				<li>
-					<a href="gallery.html">تخفیف</a>
 				</li>
 				<li>
 					<a href="gallery.html">گالری</a>
@@ -210,16 +218,27 @@
 						<li><a href="advanced-form.html">همه تماس ها</a></li>
 					</ul>
 				</li>
+				<li>
+					<a href="#">هشدار ها</a>
+					<ul>
+						<li><a href="advanced-form.html">همه هشدار ها</a></li>
+						<li><a href="basic-form.html">ایجاد هشدار جدید</a></li>
+					</ul>
+				</li>
 			</ul>
 			<ul id="navigationUsers">
 				<li class="navigation-divider">کاربران</li>
-				<li><a href="profile.html">همه کاربران</a></li>
-				<li><a href="timeline.html">ایجاد ادمین</a></li>
-				<li><a href="invoice.html">افزودن دسترسی به ادمین</a></li>
+				<li><a href="profile.html">کاربران</a></li>
+				<li><a href="profile.html">ادمین ها</a></li>
+				<li><a href="timeline.html">ارسال پیام انبوه</a></li>
 			</ul>
 			<ul id="navigationBlog">
-				<li><a href="profile.html">افزودن وبلاگ</a></li>
-				<li><a href="profile.html">همه وبلاگ ها</a></li>
+				<li><a href="profile.html">وبلاگ ها</a></li>
+			</ul>
+			<ul id="navigationDiscount">
+				<li><a href="profile.html">همه تخفیف ها</a></li>
+				<li><a href="profile.html">تخفیف روی محصولات</a></li>
+				<li><a href="profile.html">تخفیف برای کاربران</a></li>
 			</ul>
 		</div>
 	</div>
@@ -242,16 +261,7 @@
 		<div class="header-body">
 
 			<div class="header-body-left">
-				<h3 class="page-title">صفحه خالی</h3>
-				<!-- begin::breadcrumb -->
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">داشبورد</a></li>
-						<li class="breadcrumb-item active" aria-current="page">صفحه خالی</li>
-					</ol>
-				</nav>
-				<!-- end::breadcrumb -->
-
+				<h3 class="page-title">{% block inner_title %}{% endblock %}</h3>
 			</div>
 			<div class="header-body-right">
                 <div class="d-flex align-items-center">
@@ -268,47 +278,17 @@
 	<!-- end::header -->
 
 	<!-- begin::main content -->
-	<main class="main-content">
-
-		<div class="row">
-			<div class="col-md-6">
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">عنوان محتوا</h5>
-						<p>
-							صفحه خالی ...
-						</p>
-						<div>&nbsp;</div>
-						<div>&nbsp;</div>
-						<div>&nbsp;</div>
-						<div>&nbsp;</div>
-						<div>&nbsp;</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="card">
-					<div class="card-header">عنوان محتوا</div>
-					<div class="card-body">
-						<p>
-							صفحه خالی ...
-						</p>
-						<div>&nbsp;</div>
-						<div>&nbsp;</div>
-						<div>&nbsp;</div>
-						<div>&nbsp;</div>
-						<div>&nbsp;</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
+	<main class="main-content" id="panel_content">
+		{% block panel_content %}
+		{% endblock %}
 	</main>
 	<!-- end::main content -->
 
 	<script src="{% static 'admin/vendors/bundle.js' %}"></script>
 	<script src="{% static 'admin/assets/js/custom.js' %}"></script>
 	<script src="{% static 'admin/assets/js/app.js' %}"></script>
+	{% block extra_js %}
+	{% endblock %}
 
 </body>
 

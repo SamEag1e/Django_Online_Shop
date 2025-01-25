@@ -93,6 +93,7 @@ class Product(models.Model):
         blank=True,
         related_name="products",
     )
+    sales = models.IntegerField(default=0)
     categories = GenericRelation(Category, related_name="products", blank=True)
     tags = GenericRelation(Tag, related_name="products", blank=True)
     rates = GenericRelation(Rate, related_query_name="rates", blank=True)

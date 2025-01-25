@@ -1,4 +1,4 @@
-def get_menu_data():
+def get_menu_data(request):
     categories = [
         {"آشپزخانه": ["پارچ", "لیوان", "بشقاب"]},
         {"تزئینی": ["زیر دسته بندی", "زیر دسته بندی 2"]},
@@ -31,4 +31,4 @@ def get_menu_data():
             "sub_items": ["ایران", "جین"],
         },
     ]
-    return categories, menu_data
+    return {"categories": categories, "menu_data": menu_data}

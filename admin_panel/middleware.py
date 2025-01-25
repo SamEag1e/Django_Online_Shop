@@ -15,7 +15,7 @@ class AdminLoginRequiredMiddleware:
         if current_url_name in (
             "admin_login",
             "admin_otp_check",
-        ) or not path.startswith("/admin/"):
+        ) or not path.startswith("/website-manager/"):
             return self.get_response(request)
 
         if not request.user.is_authenticated:
