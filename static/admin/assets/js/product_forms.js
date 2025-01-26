@@ -1,10 +1,10 @@
 // JavaScript for dynamically adding and removing forms
-function cloneFormset(containerId, prefix) {
+function cloneFormset(containerId, prefix, divClassName) {
     const container = document.getElementById(containerId);
     const totalForms = document.querySelector(`#id_${prefix}-TOTAL_FORMS`);
 
     if (!totalForms) {
-        console.error(`Management form for prefix '${prefix}'.`);
+        console.error(`Management form for prefix '${prefix}' not found.`);
         return;
     }
 
@@ -16,15 +16,19 @@ function cloneFormset(containerId, prefix) {
 
     const formCount = parseInt(totalForms.value);
     const newForm = emptyForm.cloneNode(true);
-    newForm.classList.remove("d-none");
 
-    // Update IDs and names
+    // Update class name based on the provided parameter
+    if (divClassName) {
+        newForm.className = divClassName;
+    }
+
+    // Replace "__prefix__" with the current form count in IDs and names
     newForm.innerHTML = newForm.innerHTML.replace(
-        new RegExp(`${prefix}__prefix__`, "g"),
-        `${prefix}-${formCount}`
+        /__prefix__/g,
+        `${formCount}`
     );
 
-    // Clear input values
+    // Clear input values in the cloned form
     newForm.querySelectorAll("input, textarea, select").forEach(input => {
         input.value = "";
     });
@@ -39,10 +43,10 @@ function cloneFormset(containerId, prefix) {
 
 // Add Additional Image
 document.getElementById("add-additional_images").addEventListener("click", () => {
-    cloneFormset("additional-images", "additional_images"); 
+    cloneFormset("additional-images", "additional_images","additional-image-form"); 
 });
 
 // Add Product Detail
 document.getElementById("add-details").addEventListener("click", () => {
-    cloneFormset("product-details", "details");
+    cloneFormset("product-details", "details","detail-value-form");
 });
