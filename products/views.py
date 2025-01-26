@@ -53,7 +53,7 @@ product_country = DynamicCRUDViewGenerator(
         "delete": "admin/product_country/productcountry_confirm_delete.html",
     },
     context_object_name="countries",
-    fields=["name"],
+    fields=["name", "country_code", "region"],
 )
 # ---------------------------------------------------------------------
 product_material = DynamicCRUDViewGenerator(

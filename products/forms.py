@@ -1,11 +1,36 @@
 from django import forms
+from django.contrib.contenttypes.models import ContentType
+
+from categories.models import Category
 from .models import Product, ProductAdditionalImage, ProductDetailValue
 
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        exclude = ("rates", "sales", "slug")
+        fields = [
+            "is_active",
+            "name",
+            "sku",
+            "price",
+            "quantity",
+            "material",
+            "brand",
+            "country",
+            "categories",
+            "meta_title",
+            "meta_description",
+            "description",
+            "primary_image",
+        ]
+
+    product_content_type = ContentType.objects.get_for_model(Product)
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.filter(
+            content_type=ContentType.objects.get_for_model(Product)
+        ),
+        required=False,
+    )
 
 
 class ProductAdditionalImageForm(forms.ModelForm):

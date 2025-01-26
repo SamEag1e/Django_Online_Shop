@@ -3,7 +3,6 @@ from django.utils.text import slugify
 from django.contrib.contenttypes.fields import GenericRelation
 
 from categories.models import Category
-from tags.models import Tag
 from rates.models import Rate
 from .utils import primary_image_path, additional_image_path
 
@@ -93,16 +92,18 @@ class Product(models.Model):
         blank=True,
         related_name="products",
     )
+    categories = models.ManyToManyField(
+        Category, related_name="products", blank=True
+    )
+    # SEO metadata
+    meta_title = models.CharField(max_length=255, blank=True)
+    meta_description = models.TextField(blank=True)
+    # Not in admin form fields
     sales = models.IntegerField(default=0)
-    categories = GenericRelation(Category, related_name="products", blank=True)
-    tags = GenericRelation(Tag, related_name="products", blank=True)
     rates = GenericRelation(Rate, related_query_name="rates", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique=True, blank=True, allow_unicode=True)
-    # SEO metadata
-    meta_title = models.CharField(max_length=255, blank=True)
-    meta_description = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:

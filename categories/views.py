@@ -63,7 +63,6 @@ class ProductCategoryCreateView(CreateView):
             app_label="products", model="product"
         )
         form.instance.content_type = product_content_type
-        form.instance.object_id = None
         parent_id = self.request.GET.get("parent")
         if parent_id:
             form.instance.parent = Category.objects.get(pk=parent_id)
@@ -91,7 +90,6 @@ class ProductCategoryUpdateView(UpdateView):
             app_label="products", model="product"
         )
         form.instance.content_type = product_content_type
-        form.instance.object_id = None
         return super().form_valid(form)
 
     def get_success_url(self):
