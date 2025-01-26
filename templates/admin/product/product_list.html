@@ -6,16 +6,16 @@
 
 <a href="{% url 'product_create' %}" class="btn btn-primary p-2 m-2">افزودن محصول جدید</a>
 {% if products %}
-<table>
+<table class="table">
     <thead>
         <tr>
-            <th>نام</th>
-            <th>کد</th>
-            <th>قیمت</th>
-            <th>موجودی</th>
-            <th>فروش</th>
-            <th>فعال</th>
-            <th>عملیات</th>
+            <th scope="col">نام</th>
+            <th scope="col">کد</th>
+            <th scope="col">قیمت</th>
+            <th scope="col">موجودی</th>
+            <th scope="col">فروش</th>
+            <th scope="col">فعال</th>
+            <th scope="col">عملیات</th>
         </tr>
     </thead>
     <tbody>
@@ -24,14 +24,14 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.sku }}</td>
                 <td>{{ product.price }}</td>
-                <td>{{ product.quantitiy }}</td>
+                <td>{{ product.quantity }}</td>
                 <td>{{ product.sales }}</td>
                 <td>{{ product.is_active }}</td>
                 <td>
-                    <a class="action-link" href="{% url 'product_update' product.pk %}" title="تغییر">
-                        <i class="icon ti-pencil-alt"></i>
-                    </a>
                     <a class="action-link" href="{% url 'product_update' product.pk %}" title="افزایش موجودی">
+                        <i class="icon ti-plus"></i>
+                    </a>
+                    <a class="action-link" href="{% url 'product_update' product.pk %}" title="تغییر">
                         <i class="icon ti-pencil-alt"></i>
                     </a>
                     <a class="action-link" href="{% url 'product_delete' product.pk %}" title="حذف">

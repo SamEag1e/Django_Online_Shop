@@ -1,38 +1,50 @@
 {% extends "admin/admin-base.html" %}
+{% load static %}
 {% block title %}| محصولات{% endblock %}
 {% block inner_title %} محصولات{% endblock %}
-{% block card_title %}محصولات{% endblock%}
+{% block card_title %}محصولات{% endblock %}
 {% block panel_content %}
-
-<h1>{% if form.instance.pk %}Edit Product{% else %}Create Product{% endif %}</h1>
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
 
-    <h2>Additional Images</h2>
-    {{ image_formset.management_form }}
-    {% for form in image_formset %}
-        <div>
-            {{ form.as_p }}
-            {% if form.instance.pk %}
-                <input type="checkbox" name="{{ form.prefix }}-DELETE"> Delete
-            {% endif %}
+    <h1>عکس بیشتر</h1>
+    <div id="additional-images">
+        {{ additional_image_formset.management_form }}
+        <div class="additional_images-empty-form d-none" >
+            {{ additional_image_formset.empty_form.as_p }}
         </div>
-    {% endfor %}
+        {% for form in additional_image_formset %}
+            <div class="additional-image-form">
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+        <button type="button" id="add-additional_images">Add More Images</button>
+    </div>
 
-    <h2>Detail Values</h2>
-    {{ detail_formset.management_form }}
-    {% for form in detail_formset %}
-        <div>
-            {{ form.as_p }}
-            {% if form.instance.pk %}
-                <input type="checkbox" name="{{ form.prefix }}-DELETE"> Delete
-            {% endif %}
+    <h1>جزئیات محصول</h1>
+    <div id="product-details">
+        {{ detail_value_formset.management_form }}
+        <div class="details-empty-form d-none">
+            {{ detail_value_formset.empty_form.as_p }}
         </div>
-    {% endfor %}
+        {% for form in detail_value_formset %}
+            <div class="detail-value-form">
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+        <button type="button" id="add-details">Add More Details</button>
+    </div>
+
     <button type="submit" class="btn btn-secondary p-2 m-2">ذخیره</button>
 </form>
+
 <a href="{% url 'product_list' %}" class="btn btn-primary p-2 m-2">بازگشت</a>
- 
+
 {% endblock %}
+{% block extra_js %}
+<script src="{% static 'admin/assets/js/product_forms.js' %}"></script>
+{% endblock%}
+
+

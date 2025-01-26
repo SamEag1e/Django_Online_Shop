@@ -5,13 +5,19 @@ from .models import Product, ProductAdditionalImage, ProductDetailValue
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        exclude = ("categories", "tags", "rates", "sales", "slug")
+        exclude = ("rates", "sales", "slug")
 
 
 class ProductAdditionalImageForm(forms.ModelForm):
     class Meta:
         model = ProductAdditionalImage
         fields = ("image",)
+
+
+class ProductDetailValueForm(forms.ModelForm):
+    class Meta:
+        model = ProductDetailValue
+        fields = ("detail", "value")
 
 
 ProductAdditionalImageFormset = forms.inlineformset_factory(
@@ -21,12 +27,6 @@ ProductAdditionalImageFormset = forms.inlineformset_factory(
     extra=1,
     can_delete=True,
 )
-
-
-class ProductDetailValueForm(forms.ModelForm):
-    class Meta:
-        model = ProductDetailValue
-        fields = ("detail", "value")
 
 
 ProductDetailValueFormset = forms.inlineformset_factory(
