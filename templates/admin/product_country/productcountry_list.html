@@ -5,7 +5,7 @@
 {% block panel_content %}
 
 <p><a href="{% url 'country_create' %}" class="btn btn-primary p-2 m-2">افزودن کشور جدید</a></p>
-
+{% if countries %}
 <table>
     <thead>
         <tr>
@@ -29,4 +29,5 @@
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
 {% endblock %}

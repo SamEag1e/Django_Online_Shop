@@ -5,7 +5,7 @@
 {% block panel_content %}
 
 <a href="{% url 'brand_create' %}" class="btn btn-primary p-2 m-2">افزودن برند جدید</a>
-
+{% if brands %}
 <table>
     <thead>
         <tr>
@@ -29,4 +29,5 @@
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
 {% endblock %}

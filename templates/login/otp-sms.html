@@ -10,7 +10,7 @@
 </div>
 
 <form 
-    {% if 'admin' in request.path %}
+    {% if 'website-manager' in request.path %}
         action="{% url 'admin_otp_check'%}" 
     {% else %}
         action = "{% url 'customer_otp_check' %}"
@@ -32,7 +32,7 @@
     <div class="countDownContainer">
         <div 
             id="config"
-            {% if 'admin' in request.path %}
+            {% if 'website-manager' in request.path %}
                 data-customer-login-url="{% url 'admin_login' %}"
             {% else %}
                 data-customer-login-url="{% url 'customer_login' %}"

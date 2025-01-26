@@ -5,7 +5,7 @@
 {% block panel_content %}
 
 <p><a href="{% url 'material_create' %}" class="btn btn-primary p-2 m-2">افزودن جنس جدید</a></p>
-
+{% if materials %}
 <table>
     <thead>
         <tr>
@@ -29,5 +29,5 @@
         {% endfor %}
     </tbody>
 </table>
-
+{% endif %}
 {% endblock %}

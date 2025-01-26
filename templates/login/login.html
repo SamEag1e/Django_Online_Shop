@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    {% if "admin" in request.path %}
+    {% if "website-manager" in request.path %}
     فروشگاه بهزاد | پنل ادمین
     {% else %}
     ورود - ثبت نام | فروشگاه بهزاد
@@ -15,7 +15,7 @@
 
 {% block content %}
     <form 
-        {% if 'admin' in request.path %}
+        {% if 'website-manager' in request.path %}
             action="{% url 'admin_login'%}" 
         {% else %}
             action = "{% url 'customer_login' %}"
