@@ -1,3 +1,5 @@
+from django.shortcuts import render
+from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import redirect
@@ -146,3 +148,54 @@ class ProductUpdateView(ProductFormView, UpdateView):
 # ---------------------------------------------------------------------
 class ProductCreateView(ProductFormView, CreateView):
     pass
+
+
+# ########################### Website_views ###########################
+# ---------------------------------------------------------------------
+def product_list(request):
+    products = Product.objects.all()
+
+    # Get query parameters for pagination and ordering
+    page = request.GET.get("page", 1)
+    order = request.GET.get("order", None)
+
+    # Handle sorting
+    if order == "1":  # Example: order by name
+        products = products.order_by("name")
+    elif order == "2":  # Example: order by price
+        products = products.order_by("price")
+
+    # Handle filtering from POST data
+    if request.method == "POST":
+        brand = request.POST.get("brand")
+        country = request.POST.get("country")
+        min_price = request.POST.get("min_price")
+        max_price = request.POST.get("max_price")
+        material = request.POST.get("material")
+        category = request.POST.get("category")
+
+        if brand:
+            products = products.filter(brand__id=brand)
+        if country:
+            products = products.filter(country=country)
+        if min_price:
+            products = products.filter(price__gte=min_price)
+        if max_price:
+            products = products.filter(price__lte=max_price)
+        if material:
+            products = products.filter(material=material)
+        if category:
+            products = products.filter(category=category)
+
+    # Pagination
+    paginator = Paginator(products, 10)  # 10 products per page
+    products = paginator.get_page(page)
+
+    return render(
+        request,
+        "website/product/search.html",
+        {
+            "products": products,
+            "paginator": paginator,
+        },
+    )

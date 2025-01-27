@@ -11,8 +11,6 @@ from .views import (
 )
 
 
-urlpatterns = []
-
 urlpatterns = [
     path(
         "brand/",
