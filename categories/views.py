@@ -7,31 +7,7 @@ from django.views.generic import (
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
 from .models import Category
-
-
-# ---------------------------------------------------------------------
-def build_category_tree(parent=None, app_label="products", model="product"):
-    content_type = ContentType.objects.get(app_label=app_label, model=model)
-
-    categories = Category.objects.filter(
-        parent=parent, content_type=content_type
-    ).order_by("name")
-
-    tree = []
-    for category in categories:
-        tree.append(
-            {
-                "category": category,
-                "children": build_category_tree(
-                    parent=category, app_label=app_label, model=model
-                ),
-                "create_this_level_url": reverse("category_create")
-                + f"?parent={category.id}",
-                "update_url": reverse("category_update", args=[category.id]),
-                "delete_url": reverse("category_delete", args=[category.id]),
-            }
-        )
-    return tree
+from .trees import get_admin_category_tree
 
 
 # ---------------------------------------------------------------------
@@ -40,7 +16,7 @@ class ProductCategoryTreeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["category_tree"] = build_category_tree()
+        context["category_tree"] = get_admin_category_tree()
         context["is_root"] = True
         return context
 

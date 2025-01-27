@@ -1,34 +1,7 @@
+from categories.trees import get_user_category_tree
+
+
 def get_menu_data(request):
-    categories = [
-        {"آشپزخانه": ["پارچ", "لیوان", "بشقاب"]},
-        {"تزئینی": ["زیر دسته بندی", "زیر دسته بندی 2"]},
-    ]
-    menu_data = [
-        {
-            "title": "بر اساس دسته بندی",
-            "sub_items": [
-                "آشپزخانه",
-                "تزئینی",
-                "سکسی",
-            ],
-        },
-        {
-            "title": "بر اساس قیمت",
-            "sub_items": [
-                "گوشی تا 2 میلیون",
-                "گوشی تا 5 میلیون",
-                "گوشی تا 10 میلیون",
-                "گوشی تا 12 میلیون",
-                "گوشی تا 15 میلیون",
-            ],
-        },
-        {
-            "title": "بر اساس برند",
-            "sub_items": ["پاشاباغچه", "اون یکی"],
-        },
-        {
-            "title": "بر اساس کشور تولید کننده",
-            "sub_items": ["ایران", "جین"],
-        },
-    ]
-    return {"categories": categories, "menu_data": menu_data}
+    categories = get_user_category_tree()
+    print(categories)
+    return {"categories": categories}
