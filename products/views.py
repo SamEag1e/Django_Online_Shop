@@ -155,66 +155,50 @@ class ProductCreateView(ProductFormView, CreateView):
 def product_list(request):
     products = Product.objects.all()
 
-    # Handle query parameters for filtering
-    category = request.GET.getlist("category")
-    brand = request.GET.getlist("brand")
-
-    if category:
-        products = products.filter(categories__slug__in=category)
-    if brand:
-        products = products.filter(brand__id__in=brand)
-
-    # Handle pagination and ordering
-    page = request.GET.get("page", 1)
-    order = request.GET.get("order", 1)
-
-    if order == "1":
-        products = products.order_by("name")
-    elif order == "2":
-        products = products.order_by("price")
-
-    # Handle additional filters from POST data
-    if request.method == "POST":
-        brand += request.POST.getlist("brand")
-        category += request.POST.getlist("category")
-        country = request.POST.getlist("country")
-        min_price = request.POST.get("min_price")
-        max_price = request.POST.get("max_price")
-        material = request.POST.getlist("material")
-
-        if brand:
-            products = products.filter(brand__id__in=brand)
-        if category:
-            products = products.filter(categories__slug__in=category)
-        if country:
-            products = products.filter(country__in=country)
-        if min_price:
-            products = products.filter(price__gte=min_price)
-        if max_price:
-            products = products.filter(price__lte=max_price)
-        if material:
-            products = products.filter(material__in=material)
-
-    # Pagination
-    paginator = Paginator(products, 10)
-    products = paginator.get_page(page)
-
-    # Store selected filters in context for UI persistence
     selected_filters = {
-        "brand": brand,
-        "category": category,
-        "country": country if request.method == "POST" else [],
-        "min_price": min_price if request.method == "POST" else "",
-        "max_price": max_price if request.method == "POST" else "",
-        "material": material if request.method == "POST" else [],
+        "min_price": request.GET.get("min_price", ""),
+        "max_price": request.GET.get("max_price", ""),
+        "brand": request.GET.getlist("brand"),
+        "material": request.GET.getlist("material"),
+        "category": request.GET.getlist("category"),
     }
 
-    return render(
-        request,
-        "website/product/search.html",
-        {
-            "products": products,
-            "paginator": paginator,
-            "selected_filters": selected_filters,
-        },
-    )
+    # Filter by price range
+    if selected_filters["min_price"]:
+        products = products.filter(price__gte=selected_filters["min_price"])
+    if selected_filters["max_price"]:
+        products = products.filter(price__lte=selected_filters["max_price"])
+
+    # Filter by brand (using slugs)
+    if selected_filters["brand"]:
+        products = products.filter(brand__slug__in=selected_filters["brand"])
+
+    # Filter by material (using slugs)
+    if selected_filters["material"]:
+        products = products.filter(
+            material__slug__in=selected_filters["material"]
+        )
+
+    # Filter by category (using slugs)
+    if selected_filters["category"]:
+        products = products.filter(
+            categories__slug__in=selected_filters["category"]
+        )
+
+    # Pagination
+    paginator = Paginator(products, 20)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    # Fetch all brands, materials, and categories for the filters
+    brands = ProductBrand.objects.all()
+    materials = ProductMaterial.objects.all()
+
+    context = {
+        "products": page_obj,
+        "brands": brands,
+        "materials": materials,
+        "selected_filters": selected_filters,
+    }
+
+    return render(request, "website/product_list.html", context)

@@ -195,108 +195,111 @@
 <div class="row">
     <div class="col-lg-3 d-lg-block d-none">
         <div class="item-boxs position-sticky top-0">
-            <form action="{% url 'search_products' %}" method="post">
-                {% csrf_token %}
-            <div class="item-box shadow-box">
-                <div class="title">
-                    <div class="d-flex align-items-center justify-content-between">
+            <form action="{% url 'search_products' %}" method="get">
+                <div class="item-box shadow-box">
+                    <div class="title d-flex align-items-center justify-content-between">
                         <h6 class="font-14">محدوده قیمت</h6>
-                        <a class="btn border-0" data-bs-toggle="collapse" href="#collapsePrice"
-                            role="button" aria-expanded="false">
+                        <a class="btn border-0" data-bs-toggle="collapse" href="#collapsePrice" role="button">
                             <i class="bi bi-chevron-down"></i>
                         </a>
                     </div>
-                </div>
-                <div class="desc collapse show" id="collapsePrice">
-                    <div class="filter-item-content">
-                        <div class="form-group">
-                            <input type="range" class="catRange" name="range[]">
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <input type="number" name="min_price"  min="100000"
-                                        class="form-control input-range-filter"
-                                        placeholder="از 100,000">
+                    <div class="desc collapse show" id="collapsePrice">
+                        <div class="filter-item-content">
+                            <div class="form-group">
+                                <input type="range" class="catRange">
                             </div>
-                            <div class="col-6">
-                                <input type="number" name="max_price"  min="100000" max="30000000"
-                                        class="form-control input-range-filter"
-                                        placeholder="تا 30,000,000">
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="number" name="min_price" min="100000"
+                                           class="form-control input-range-filter"
+                                           placeholder="از 100,000"
+                                           value="{{ selected_filters.min_price }}">
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="max_price" min="100000" max="30000000"
+                                           class="form-control input-range-filter"
+                                           placeholder="تا 30,000,000"
+                                           value="{{ selected_filters.max_price }}">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="item-box shadow-box">
-                <div class="title">
-                    <div class="d-flex align-items-center justify-content-between">
+            
+                <div class="item-box shadow-box">
+                    <div class="title d-flex align-items-center justify-content-between">
                         <h6 class="font-14">دسته بندی</h6>
-                        <a class="btn border-0" data-bs-toggle="collapse" href="#collapseItemBoxCategory"
-                            role="button" aria-expanded="false">
+                        <a class="btn border-0" data-bs-toggle="collapse" href="#collapseItemBoxCategory" role="button">
                             <i class="bi bi-chevron-down"></i>
                         </a>
                     </div>
-                </div>
-                <div class="desc collapse show" id="collapseItemBoxCategory">
-                    <div class="filter-item-content">
-                        {% include 'website/search-product-categories.html' with categories=categories %}
+                    <div class="desc collapse show" id="collapseItemBoxCategory">
+                        <div class="filter-item-content">
+                            {% include 'website/search-product-categories.html' with categories=categories %}
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="item-box shadow-box">
-                <div class="title">
-                    <div class="d-flex align-items-center justify-content-between">
+            
+                <div class="item-box shadow-box">
+                    <div class="title d-flex align-items-center justify-content-between">
                         <h6 class="font-14">برند</h6>
-                        <a class="btn border-0" data-bs-toggle="collapse" href="#collapseItemBoxBrand"
-                            role="button" aria-expanded="false">
+                        <a class="btn border-0" data-bs-toggle="collapse" href="#collapseItemBoxBrand" role="button">
                             <i class="bi bi-chevron-down"></i>
                         </a>
                     </div>
-                </div>
-                <div class="desc collapse show" id="collapseItemBoxBrand">
-                    <div class="filter-item-content">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
-                            <div class="form-check">
-                                <label for="colorCheck11" class="form-check-label">موبایل <i class="bi bi-phone ms-1"></i></label>
-                                <input type="checkbox" name="brands" id="colorCheck11" class="form-check-input">
+                    <div class="desc collapse show" id="collapseItemBoxBrand">
+                        <div class="filter-item-content">
+                            {% for brand in brands %}
+                            <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+                                <div class="form-check">
+                                    <label for="brand-{{ brand.slug }}" class="form-check-label">
+                                        {{ brand.name }}
+                                    </label>
+                                    <input type="checkbox" name="brand" value="{{ brand.slug }}" id="brand-{{ brand.slug }}"
+                                           class="form-check-input"
+                                           {% if brand.slug in selected_filters.brand %}checked{% endif %}>
+                                    <span class="fw-bold font-14">({{ brand.product_count }})</span>
+                                </div>
+                                <div>
+                                    
+                                </div>
                             </div>
-                            <div>
-                                <span class="fw-bold font-14">(27)</span>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="item-box shadow-box">
-                <div class="title">
-                    <div class="d-flex align-items-center justify-content-between">
+            
+                <div class="item-box shadow-box">
+                    <div class="title d-flex align-items-center justify-content-between">
                         <h6 class="font-14">جنس</h6>
-                        <a class="btn border-0" data-bs-toggle="collapse" href="#collapseItemBoxMaterial"
-                            role="button" aria-expanded="false">
+                        <a class="btn border-0" data-bs-toggle="collapse" href="#collapseItemBoxMaterial" role="button">
                             <i class="bi bi-chevron-down"></i>
                         </a>
                     </div>
-                </div>
-                <div class="desc collapse show" id="collapseItemBoxMaterial">
-                    <div class="filter-item-content">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
-                            <div class="form-check">
-                                <label for="colorCheck11" class="form-check-label">موبایل <i class="bi bi-phone ms-1"></i></label>
-                                <input type="checkbox" name="materials" id="colorCheck11" class="form-check-input">
+                    <div class="desc collapse show" id="collapseItemBoxMaterial">
+                        <div class="filter-item-content">
+                            {% for material in materials %}
+                            <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+                                <div class="form-check">
+                                    <label for="material-{{ material.slug }}" class="form-check-label">
+                                        {{ material.name }}
+                                    </label>
+                                    <input type="checkbox" name="material" value="{{ material.slug }}" id="material-{{ material.slug }}"
+                                           class="form-check-input"
+                                           {% if material.slug in selected_filters.material %}checked{% endif %}>
+                                    <span class="fw-bold font-14">({{ material.product_count }})</span>
+                                </div>
                             </div>
-                            <div>
-                                <span class="fw-bold font-14">(27)</span>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="text-center mb-3 mt-2">
-                <input type="submit" class="btn main-color-green text-white rounded-pill px-5 py-2" value="اعمال فیلترها">
-            </div>
+            
+                <div class="text-center mb-3 mt-2">
+                    <input type="submit" class="btn main-color-green text-white rounded-pill px-5 py-2" value="اعمال فیلترها">
+                </div>
+            </form>
+            
         </div>
     </div>
     <div class="col-lg-9">
