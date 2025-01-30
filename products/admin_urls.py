@@ -88,7 +88,7 @@ urlpatterns = [
         product_material.delete_view().as_view(),
         name="material_delete",
     ),
-    path("list/", ProductListView.as_view(), name="product_list"),
+    path("list/", ProductListView.as_view(), name="product_list_admin"),
     path("create/", ProductCreateView.as_view(), name="product_create"),
     path(
         "<int:pk>/update/",

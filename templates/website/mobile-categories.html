@@ -2,7 +2,7 @@
 <ul class="navbar-nav h-0">
     {% for category in categories %}
     <li class="nav-item bg-ul-f7">
-        <a href="{% url 'search_products' %}?category={{ category.slug }}" class="nav-link">
+        <a href="{% url 'product_list_user' %}?category={{ category.slug }}" class="nav-link">
             {{ category.name }}
         </a>
         {% if category.children %}

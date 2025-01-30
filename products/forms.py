@@ -14,6 +14,7 @@ class ProductForm(forms.ModelForm):
             "sku",
             "price",
             "quantity",
+            "discount",
             "material",
             "brand",
             "country",

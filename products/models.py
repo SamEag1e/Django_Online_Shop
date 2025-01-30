@@ -133,6 +133,7 @@ class Product(models.Model):
     meta_title = models.CharField(max_length=255, blank=True)
     meta_description = models.TextField(blank=True)
     # Not in admin form fields
+    discount = models.SmallIntegerField(blank=True, null=True)
     sales = models.IntegerField(default=0)
     rates = GenericRelation(Rate, related_query_name="rates", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -155,6 +156,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def discounted_price(self):
+        discounted = self.price * (self.discount / 100.0)
+        return round(discounted / 1000) * 1000
 
 
 # ---------------------------------------------------------------------

@@ -83,7 +83,7 @@ class ProductListView(ListView):
 class ProductDeleteView(DeleteView):
     model = Product
     template_name = "admin/product/product_confirm_delete.html"
-    success_url = reverse_lazy("product_list")
+    success_url = reverse_lazy("product_list_admin")
 
 
 # ---------------------------------------------------------------------
@@ -91,7 +91,7 @@ class ProductFormView:
     model = Product
     form_class = ProductForm
     template_name = "admin/product/product_form.html"
-    success_url = reverse_lazy("product_list")
+    success_url = reverse_lazy("product_list_admin")
 
     def get_formsets(self):
         """Helper function to get the formsets."""
@@ -186,7 +186,7 @@ def product_list(request):
         )
 
     # Pagination
-    paginator = Paginator(products, 20)
+    paginator = Paginator(products, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
@@ -198,3 +198,8 @@ def product_list(request):
     }
 
     return render(request, "website/product/search.html", context)
+
+
+# ---------------------------------------------------------------------
+def product_single(request, slug):
+    return render(request, "website/product/search.html")
