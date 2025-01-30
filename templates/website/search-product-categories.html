@@ -1,0 +1,32 @@
+{% if categories %}
+<ul class="list-unstyled">
+    {% for category in categories %}
+    <li>
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="form-check">
+                <input type="checkbox" name="category" id="{{ category.slug }}" class="form-check-input">
+                <label for="{{ category.slug }}" class="form-check-label">
+                    {{ category.name }}
+                </label>
+                <span class="fw-bold font-14">({{ category.product_count }})</span>
+            </div>
+            <div>
+                {% if category.children %}
+                    <a class="btn border-0" data-bs-toggle="collapse" href="#collapseItemBox{{ category.slug }}" role="button" aria-expanded="false">
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                {% else %}
+                    <div></div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if category.children %}
+        <div class="collapse show ps-2" id="collapseItemBox{{ category.slug }}">
+            {% include 'website/search-product-categories.html' with categories=category.children %}
+        </div>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
