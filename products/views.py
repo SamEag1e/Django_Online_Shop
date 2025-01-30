@@ -201,4 +201,4 @@ def product_list(request):
         "selected_filters": selected_filters,
     }
 
-    return render(request, "website/product_list.html", context)
+    return render(request, "website/product/search.html", context)
