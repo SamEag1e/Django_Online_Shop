@@ -35,22 +35,31 @@ def get_admin_category_tree(
 def get_user_category_tree(parent=None, app_label="products", model="product"):
     content_type = ContentType.objects.get(app_label=app_label, model=model)
 
-    categories = (
-        Category.objects.filter(parent=parent, content_type=content_type)
-        .annotate(product_count=Count("products"))
-        .order_by("name")
-    )
+    categories = Category.objects.filter(
+        parent=parent, content_type=content_type
+    ).order_by("name")
 
     tree = []
     for category in categories:
+        # Count products in this category and all its descendant categories
+        total_product_count = (
+            Category.objects.filter(
+                content_type=content_type,
+                id__in=category.get_descendants(include_self=True),
+            ).aggregate(total_count=Count("products"))["total_count"]
+            or 0
+        )
+
+        children = get_user_category_tree(
+            parent=category, app_label=app_label, model=model
+        )
+
         tree.append(
             {
                 "name": category.name,
                 "slug": category.slug,
-                "product_count": category.product_count,
-                "children": get_user_category_tree(
-                    parent=category, app_label=app_label, model=model
-                ),
+                "product_count": total_product_count,
+                "children": children,
             }
         )
 

@@ -114,3 +114,79 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+/* Recursive desktop menu */
+.recursive-category ul.main-ul {
+    align-items: unset;
+    background-color: #fff;
+    box-shadow: var(--shadow-md);
+    height: auto;
+    min-width: 200px;
+    position: absolute;
+    top: 98%;
+    left: auto;
+    right: auto;
+    opacity: 0;
+    visibility: hidden;
+    padding: 0;
+    transition: 0.4s all ease-in-out;
+    border-radius: 10px;
+}
+
+.recursive-category ul.main-ul li {
+    width: 100%;
+    margin: 0;
+    padding: 15px 0;
+    border-radius: 10px;
+    position: relative;
+}
+
+.recursive-category ul.main-ul li a {
+    display: block;
+    padding: 0 8px;
+}
+
+.recursive-category ul.main-ul i {
+    font-size: 16px;
+    vertical-align: middle;
+    color: #333;
+    float: left;
+    transition: 0.3s all ease-in-out;
+}
+
+/* Sub-menu styles (sub-ul) */
+.recursive-category ul.sub-ul {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    height: auto;
+    min-width: 200px;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    right: 100%;
+    opacity: 0;
+    visibility: hidden;
+    padding: 0;
+    transition: 0.4s all ease-in-out;
+    border-radius: 10px;
+}
+.recursive-category .main-ul li:hover > a {
+    color: #fff !important;
+}
+.recursive-category .main-ul li:hover > a i {
+    color: #fff !important;
+}
+.recursive-category .main-ul li:hover {
+    background: var(--main-color-one);
+}
+
+/* Visibility toggle for main-ul items */
+.recursive-category li:hover > ul.main-ul,
+.recursive-category li:hover > ul.sub-ul {
+    opacity: 1;
+    visibility: visible;
+}
+
+.toggle-checkbox:checked + .d-flex .toggle-label i {
+    transform: rotate(-90deg);
+    transition: transform 0.2s ease-in-out;
+}

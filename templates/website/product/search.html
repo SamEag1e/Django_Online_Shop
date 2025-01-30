@@ -195,7 +195,7 @@
 <div class="row">
     <div class="col-lg-3 d-lg-block d-none">
         <div class="item-boxs position-sticky top-0">
-            <form action="{% url 'product_list' %}" method="post">
+            <form action="{% url 'search_products' %}" method="post">
                 {% csrf_token %}
             <div class="item-box shadow-box">
                 <div class="title">
@@ -240,15 +240,7 @@
                 </div>
                 <div class="desc collapse show" id="collapseItemBoxCategory">
                     <div class="filter-item-content">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
-                            <div class="form-check">
-                                <label for="colorCheck11" class="form-check-label">موبایل <i class="bi bi-phone ms-1"></i></label>
-                                <input type="checkbox" name="categories" id="colorCheck11" class="form-check-input">
-                            </div>
-                            <div>
-                                <span class="fw-bold font-14">(27)</span>
-                            </div>
-                        </div>
+                        {% include 'website/search-product-categories.html' with categories=categories %}
                     </div>
                 </div>
             </div>

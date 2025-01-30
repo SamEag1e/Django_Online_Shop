@@ -126,7 +126,7 @@
                                 <li class="nav-item bg-ul-f7">
                                     <a href="" class="nav-link">دسته بندی</a>
                                     <span class="showSubMenu"><i class="bi bi-chevron-left"></i></span>
-                                    {% include 'website/nested-categories.html' with categories=categories %}
+                                    {% include 'website/mobile-categories.html' with categories=categories %}
                                 </li>
                                 <li class="nav-item bg-ul-f7">
                                     <a href='{% url "home" %}' class="nav-link">صفحه اصلی</a>
@@ -195,20 +195,11 @@
             <div class="row align-items-center">
                 <div class="col-lg-7">
                     <div class="header-top-menu-right">
-                        <div class="top-menu-menu">
+                        <div class="top-menu-menu recursive-category">
                             <ul class="navbar-nav align-items-center">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link header-top-menu-link-a ">
-                                        <i class="bi bi-list"></i> محصولات
-                                    </a>
-                                    <ul class="list-unstyled shadow-lg back-menu sub-menu mega-container">
-                                        {% for group in menu_data %}
-                                            <li><a href="" class="title">{{group.title}}</a></li>
-                                            {% for item in group.sub_items%}
-                                                <li><a href="">{{item}}</a></li>
-                                            {% endfor %}
-                                        {% endfor %}
-                                    </ul>
+                                <li class="nav-item"><a href="" class="nav-link  header-top-menu-link-a ">
+                                    <i class="bi bi-list"></i>دسته بندی</a>
+                                    {% include 'website/desktop-categories.html' with categories=categories is_root=True %}
                                 </li>
                                 <li class="nav-item"><a href="" class="nav-link header-top-menu-link-a ">صفحه اصلی
                                     <i class="bi bi-house"></i></a>
