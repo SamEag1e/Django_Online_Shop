@@ -28,7 +28,7 @@ product_brand = DynamicCRUDViewGenerator(
         "delete": "admin/product_brand/productbrand_confirm_delete.html",
     },
     context_object_name="brands",
-    fields=["name", "slug", "logo", "description"],
+    fields=["name", "logo", "description"],
 )
 
 # ---------------------------------------------------------------------
@@ -190,14 +190,10 @@ def product_list(request):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
-    # Fetch all brands, materials, and categories for the filters
-    brands = ProductBrand.objects.all()
-    materials = ProductMaterial.objects.all()
-
     context = {
         "products": page_obj,
-        "brands": brands,
-        "materials": materials,
+        "brands": ProductBrand.objects.all(),
+        "materials": ProductMaterial.objects.all(),
         "selected_filters": selected_filters,
     }
 

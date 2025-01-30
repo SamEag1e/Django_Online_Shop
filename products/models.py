@@ -8,16 +8,25 @@ from .utils import primary_image_path, additional_image_path
 
 
 # ---------------------------------------------------------------------
-class ProductDetail(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-
-    def __str__(self):
-        return self.name
-
-
-# ---------------------------------------------------------------------
 class ProductMaterial(models.Model):
     name = models.CharField(max_length=50)
+    slug = models.SlugField(unique=True, blank=True, allow_unicode=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name, allow_unicode=True)
+
+        original_slug = self.slug
+        counter = 1
+        while (
+            ProductMaterial.objects.filter(slug=self.slug)
+            .exclude(id=self.id)
+            .exists()
+        ):
+            self.slug = f"{original_slug}-{counter}"
+            counter += 1
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -55,6 +64,31 @@ class ProductCountry(models.Model):
     name = models.CharField(max_length=50)
     country_code = models.CharField(max_length=3, blank=True)
     region = models.CharField(max_length=50, blank=True)
+    slug = models.SlugField(unique=True, blank=True, allow_unicode=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name, allow_unicode=True)
+
+        original_slug = self.slug
+        counter = 1
+        while (
+            ProductCountry.objects.filter(slug=self.slug)
+            .exclude(id=self.id)
+            .exists()
+        ):
+            self.slug = f"{original_slug}-{counter}"
+            counter += 1
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
+# ---------------------------------------------------------------------
+class ProductDetail(models.Model):
+    name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
