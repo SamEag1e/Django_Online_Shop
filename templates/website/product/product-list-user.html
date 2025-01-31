@@ -62,11 +62,11 @@
                                         </div>
                                         <div class="col-7">
                                             <select name="order" id="order" class="form-select" onchange="this.form.submit()">
-                                                <option value="newest" {% if request.GET.order == "newest" %}selected{% endif %}>جدیدترین</option>
-                                                <option value="updated" {% if request.GET.order == "updated" %}selected{% endif %}>بروزترین</option>
-                                                <option value="cheapest" {% if request.GET.order == "cheapest" %}selected{% endif %}>ارزان‌ترین</option>
-                                                <option value="expensive" {% if request.GET.order == "expensive" %}selected{% endif %}>گران‌ترین</option>
-                                                <option value="bestselling" {% if request.GET.order == "bestselling" %}selected{% endif %}>پرفروش‌ترین</option>
+                                                <option value="most_recent" {% if request.GET.order == "most_recent" %}selected{% endif %}>جدیدترین</option>
+                                                <option value="most_recently_updated" {% if request.GET.order == "most_recently_updated" %}selected{% endif %}>بروزترین</option>
+                                                <option value="price_asc" {% if request.GET.order == "price_asc" %}selected{% endif %}>ارزان‌ترین</option>
+                                                <option value="price_desc" {% if request.GET.order == "price_desc" %}selected{% endif %}>گران‌ترین</option>
+                                                <option value="top_selling" {% if request.GET.order == "top_selling" %}selected{% endif %}>پرفروش‌ترین</option>
                                             </select>
                                         </div>
                                     </div>

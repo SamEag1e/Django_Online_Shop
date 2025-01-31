@@ -8,7 +8,7 @@
                     {{ category.name }}
                 </label>
                 <input type="checkbox" name="category" value="{{ category.slug}}" id="category-{{ category.slug }}"
-                 {% if category.slug in selected_filters.category %}checked{% endif %} class="form-check-input">
+                {% if category.slug in selected_filters.category %}checked{% endif %} class="form-check-input">
                 <span class="fw-bold font-14">({{ category.product_count }})</span>
             </div>
             <div>

@@ -157,13 +157,6 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-    def discounted_price(self):
-        if None in (self.price, self.discount):
-            return self.price if self.price is not None else 0
-        return (
-            round(((self.price * (1 - self.discount / 100.0))) / 1000) * 1000
-        )
-
 
 # ---------------------------------------------------------------------
 class ProductAdditionalImage(models.Model):

@@ -64,3 +64,19 @@ def get_user_category_tree(parent=None, app_label="products", model="product"):
         )
 
     return tree
+
+
+# ---------------------------------------------------------------------
+def get_category_and_descendants(slugs):
+    """
+    Given a list of category slugs, return the selected categories
+    along with their descendants.
+    """
+    categories = Category.objects.filter(slug__in=slugs)
+
+    # Combine selected categories with their descendants
+    all_categories = categories
+    for category in categories:
+        all_categories = all_categories | category.get_descendants()
+
+    return all_categories

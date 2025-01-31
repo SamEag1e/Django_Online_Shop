@@ -1,9 +1,14 @@
 from django.shortcuts import render
+from django.db.models import Count, Q, ExpressionWrapper, F, IntegerField
+from django.db.models.functions import Coalesce
 from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import redirect
+
 from utils.view_helper import DynamicCRUDViewGenerator
+from categories.trees import get_category_and_descendants
+
 from .models import (
     ProductBrand,
     ProductDetail,
@@ -16,6 +21,7 @@ from .forms import (
     ProductAdditionalImageFormset,
     ProductDetailValueFormset,
 )
+from .utils import get_sorting_field
 
 # ---------------------------------------------------------------------
 product_brand = DynamicCRUDViewGenerator(
@@ -152,50 +158,73 @@ class ProductCreateView(ProductFormView, CreateView):
 
 # ########################### Website_views ###########################
 # ---------------------------------------------------------------------
-# make distinct
-# search children categories too
-def product_list(request):
+def filter_products(request):
     products = Product.objects.all()
 
-    selected_filters = {
-        "min_price": request.GET.get("min_price", ""),
-        "max_price": request.GET.get("max_price", ""),
-        "brand": request.GET.getlist("brand"),
-        "material": request.GET.getlist("material"),
-        "category": request.GET.getlist("category"),
+    min_price = request.GET.get("min_price", "")
+    max_price = request.GET.get("max_price", "")
+    brand = request.GET.getlist("brand")
+    material = request.GET.getlist("material")
+    category = request.GET.getlist("category")
+    search = request.GET.get("search", "")
+
+    if search:
+        products = products.filter(
+            Q(name__icontains=search)
+            | Q(sku__icontains=search)
+            | Q(description__icontains=search)
+        )
+    if min_price:
+        products = products.filter(price__gte=min_price)
+    if max_price:
+        products = products.filter(price__lte=max_price)
+    if brand:
+        products = products.filter(brand__slug__in=brand)
+    if material:
+        products = products.filter(material__slug__in=material)
+    # Filter by category (using slugs) and include children's products
+    if category:
+        all_categories = get_category_and_descendants(category)
+        products = products.filter(
+            categories__slug__in=all_categories.values_list("slug", flat=True)
+        )
+
+    products = products.distinct().annotate(
+        discounted_price=ExpressionWrapper(
+            (F("price") * (1 - Coalesce(F("discount"), 0) / 100) / 1000)
+            * 1000,
+            output_field=IntegerField(),
+        )
+    )
+
+    # Return both the filtered products and the selected filters
+    return products, {
+        "min_price": min_price,
+        "max_price": max_price,
+        "brand": brand,
+        "material": material,
+        "category": category,
     }
 
-    # Filter by price range
-    if selected_filters["min_price"]:
-        products = products.filter(price__gte=selected_filters["min_price"])
-    if selected_filters["max_price"]:
-        products = products.filter(price__lte=selected_filters["max_price"])
 
-    # Filter by brand (using slugs)
-    if selected_filters["brand"]:
-        products = products.filter(brand__slug__in=selected_filters["brand"])
+# ---------------------------------------------------------------------
+def product_list(request):
+    products, selected_filters = filter_products(request)
 
-    # Filter by material (using slugs)
-    if selected_filters["material"]:
-        products = products.filter(
-            material__slug__in=selected_filters["material"]
-        )
-
-    # Filter by category (using slugs)
-    if selected_filters["category"]:
-        products = products.filter(
-            categories__slug__in=selected_filters["category"]
-        )
+    order = get_sorting_field(request.GET.get("order", "most_recent"))
 
     # Pagination
-    paginator = Paginator(products.order_by("id"), 10)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
+    paginator = Paginator(products.order_by(order), 10)
+    page_obj = paginator.get_page(request.GET.get("page", 1))
 
     context = {
         "products": page_obj,
-        "brands": ProductBrand.objects.all(),
-        "materials": ProductMaterial.objects.all(),
+        "brands": ProductBrand.objects.annotate(
+            product_count=Count("products")
+        ),
+        "materials": ProductMaterial.objects.annotate(
+            product_count=Count("products")
+        ),
         "selected_filters": selected_filters,
         "total_products": paginator.count,
         "start_index": page_obj.start_index(),
