@@ -152,6 +152,8 @@ class ProductCreateView(ProductFormView, CreateView):
 
 # ########################### Website_views ###########################
 # ---------------------------------------------------------------------
+# make distinct
+# search children categories too
 def product_list(request):
     products = Product.objects.all()
 
@@ -186,7 +188,7 @@ def product_list(request):
         )
 
     # Pagination
-    paginator = Paginator(products, 10)
+    paginator = Paginator(products.order_by("id"), 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
@@ -195,11 +197,13 @@ def product_list(request):
         "brands": ProductBrand.objects.all(),
         "materials": ProductMaterial.objects.all(),
         "selected_filters": selected_filters,
+        "total_products": paginator.count,
+        "start_index": page_obj.start_index(),
+        "end_index": page_obj.end_index(),
     }
-
-    return render(request, "website/product/search.html", context)
+    return render(request, "website/product/product-list-user.html", context)
 
 
 # ---------------------------------------------------------------------
 def product_single(request, slug):
-    return render(request, "website/product/search.html")
+    return render(request, "website/product/product-list-user.html")

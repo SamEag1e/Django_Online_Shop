@@ -23,8 +23,8 @@
         </div>
 
         {% if category.children %}
-        <div class="collapse show ps-2" id="collapseItemBox{{ category.slug }}">
-            {% include 'website/search-product-categories.html' with categories=category.children %}
+        <div class="collapse show" id="collapseItemBox{{ category.slug }}">
+            {% include 'website/product/search-product-categories.html' with categories=category.children %}
         </div>
         {% endif %}
     </li>

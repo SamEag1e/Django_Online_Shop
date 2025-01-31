@@ -190,3 +190,6 @@
     transform: rotate(-90deg);
     transition: transform 0.2s ease-in-out;
 }
+input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}

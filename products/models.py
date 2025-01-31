@@ -132,8 +132,8 @@ class Product(models.Model):
     # SEO metadata
     meta_title = models.CharField(max_length=255, blank=True)
     meta_description = models.TextField(blank=True)
-    # Not in admin form fields
     discount = models.SmallIntegerField(blank=True, null=True)
+    # Not in admin form fields
     sales = models.IntegerField(default=0)
     rates = GenericRelation(Rate, related_query_name="rates", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -158,8 +158,11 @@ class Product(models.Model):
         return self.name
 
     def discounted_price(self):
-        discounted = self.price * (self.discount / 100.0)
-        return round(discounted / 1000) * 1000
+        if None in (self.price, self.discount):
+            return self.price if self.price is not None else 0
+        return (
+            round(((self.price * (1 - self.discount / 100.0))) / 1000) * 1000
+        )
 
 
 # ---------------------------------------------------------------------

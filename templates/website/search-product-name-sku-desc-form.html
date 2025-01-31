@@ -1,0 +1,11 @@
+<form action="{% url 'product_list_user' %}" method="get" data-no-ajax >
+    {% for key, values in request.GET.lists %}
+        {% for value in values %}
+            {% if key != 'search' and key in 'category,brand,material,min_price,max_price,order' %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}">
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    <input type="search" name="search" class="form-control input-search" placeholder="جستجوی نام، کد یا توضیحات محصول">
+    <button type="submit" class="btn input-btn-search"><i class="bi bi-search"></i></button>
+</form>

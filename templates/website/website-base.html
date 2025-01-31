@@ -67,10 +67,7 @@
             </div>
             <div class="col-xl-5 d-xl-block d-none">
                 <div class="header-form">
-                    <form action="">
-                        <input type="search" class="form-control input-search" placeholder="جستجوی محصول">
-                        <button type="submit" class="btn input-btn-search"><i class="bi bi-search"></i></button>
-                    </form>
+                    {% include 'website/search-product-name-sku-desc-form.html' %}
                 </div>
             </div>
             <div class="col-xl-4 col-6">
@@ -172,10 +169,7 @@
             <div class="col-sm-11 col-10 d-xl-none d-block">
                 <div class="d-flex">
                     <div class="header-form w-100">
-                        <form action="">
-                            <input type="search" class="form-control input-search" placeholder="جستجوی محصول">
-                            <button type="submit" class="btn input-btn-search"><i class="bi bi-search"></i></button>
-                        </form>
+                        {% include 'website/search-product-name-sku-desc-form.html' %}
                     </div>
                     <div class="text-end ms-2 d-block d-lg-none">
                         <a data-bs-toggle="offcanvas" href="#offcanvasCart" role="button" aria-controls="offcanvasCart"

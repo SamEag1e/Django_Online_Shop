@@ -1,0 +1,153 @@
+{% extends 'website/website-base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} | محصولات{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href='{% static "website/js/plugin/bootstrap-slider/bootstrap-slider.min.css" %}'>
+{% endblock %}
+{% block bread_crumb %}
+{% endblock %}
+{% block content %}
+
+<div class="custom-filter d-lg-none d-block">
+    <button class="btn border-0 main-color-green shadow-box px-4 rounded-3 position-fixed btn-filter-float"
+            style="z-index: 999;bottom:80px;" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+        <i class="bi bi-funnel font-20 fw-bold text-white"></i>
+        <span class="d-block font-14 text-white">فیلتر</span>
+    </button>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight"
+            aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasRightLabel-2">فیلتر ها</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            {% include 'website/product/filters.html' %}
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-3 d-lg-block d-none">
+        {% include 'website/product/filters.html' %}
+    </div>
+    <div class="col-lg-9">
+        <div class="filter-items shadow-box mb-4 bg-white p-4 rounded-4">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-4">
+                    <div class="filter-item">
+                        <div class="header-form">
+                            {% include 'website/search-product-name-sku-desc-form.html' %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="filter-item">
+                        <div class="filter-item-select">
+                            <form method="get">
+                                {% for key, values in request.GET.lists %}
+                                    {% for value in values %}
+                                        {% if key != 'order' %}
+                                            <input type="hidden" name="{{ key }}" value="{{ value }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                                <div>
+                                    <div class="row align-items-center">
+                                        <div class="col-5">
+                                            <h6>نمایش بر اساس:</h6>
+                                        </div>
+                                        <div class="col-7">
+                                            <select name="order" id="order" class="form-select" onchange="this.form.submit()">
+                                                <option value="newest" {% if request.GET.order == "newest" %}selected{% endif %}>جدیدترین</option>
+                                                <option value="updated" {% if request.GET.order == "updated" %}selected{% endif %}>بروزترین</option>
+                                                <option value="cheapest" {% if request.GET.order == "cheapest" %}selected{% endif %}>ارزان‌ترین</option>
+                                                <option value="expensive" {% if request.GET.order == "expensive" %}selected{% endif %}>گران‌ترین</option>
+                                                <option value="bestselling" {% if request.GET.order == "bestselling" %}selected{% endif %}>پرفروش‌ترین</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="filter-label">
+                        <p class="text-muted text-end mb-0">
+                            نمایش {{ start_index }} - {{ end_index }} از {{ total_products }} کالا 
+                        </p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row g-4">
+            {% for product in products %}
+                <div class="col-lg-4 col-sm-6">
+                    <div class="product-box pro-shadow">
+                        <a href="{% url 'product_detail' product.slug %}">
+                            <div class="product-box-image">
+                                <img src="{{ product.primary_image.url }}" alt="{{ product.name }} image">
+                            </div>
+                            <div class="product-box-title">
+                                <h5 class="text-overflow-2">{{ product.name }}</h5>
+                            </div>
+                            <div class="product-box-price">
+                                {% if product.discount %}
+                                    <div class="product-box-price-discount">
+                                        <span class="d-block badge main-color-one-bg text-white font-14 rounded-pill">{{ product.discount }}%</span>
+                                        <del>{{ product.price|intcomma }}</del>
+                                    </div>
+                                {% else %}
+                                    <div class="product-box-price-discount"></div>
+                                {% endif %}
+                                <div class="product-box-price-price">
+                                    <h5 class="title-font main-color-green-color h2 mb-0">{{ product.discounted_price|intcomma }}</h5>
+                                    <p class="mb-0 text-muted">تومان</p>
+                                </div>
+                            </div>
+                            <div class="product-box-hover">
+                                <nav class="navbar navbar-expand justify-content-center">
+                                    <ul class="navbar-nav align-items-center">
+                                        <li class="nav-item"><a href="{% url 'product_detail' product.slug %}" class="nav-item product-box-hover-item me-3">مشاهده محصول</a></li>
+                                        <li class="nav-item"><a href="{% url 'product_detail' product.slug %}" class="nav-item product-box-hover-item product-box-hover-item-btn me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="افزودن به سبد خرید"><i class="bi bi-basket"></i></a></li>
+                                        <li class="nav-item"><a href="{% url 'product_detail' product.slug %}" class="nav-item product-box-hover-item product-box-hover-item-btn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="افزودن به علاقه ها"><i class="bi bi-heart"></i></a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="my-paginate mt-5">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link rounded-3" href="#"><i class="bi bi-chevron-right"></i></a>
+                    </li>
+                    <li class="page-item active"><a class="page-link rounded-3" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link rounded-3" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link rounded-3" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link rounded-3" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link rounded-3" href="#">14</a></li>
+                    <li class="page-item"><a class="page-link rounded-3" href="#">15</a></li>
+                    <li class="page-item"><a class="page-link rounded-3" href="#">16</a></li>
+                    <li class="page-item">
+                        <a class="page-link rounded-3" href="#"><i class="bi bi-chevron-left"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src='{% static "website/js/plugin/bootstrap-slider/bootstrap-slider.min.js" %}'></script>
+<script src='{% static "website/js/range_slider.js" %}'></script>
+ {% endblock %}
