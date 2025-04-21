@@ -2,19 +2,16 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib import messages
 
-from apps.otps.utils import (
-    phone_number_validation,
-    second_send_otp_validation,
-    verify_otp,
-)
-
+from shared.messages import get_res_obj
+from apps.otps.services import send_otp_validate, verify_otp
 from .models import CustomUser
+from .utils import phone_number_validate
 
 
 # ---------------------------------------------------------------------
 def customer_logout(request):
     logout(request)
-    messages.success(request, "با موفقیت خارج شدید.")
+    messages.success(request, get_res_obj(True, "user_logout").get("msg"))
     return redirect("home")
 
 
