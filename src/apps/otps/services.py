@@ -5,7 +5,7 @@ from .models import OTPRequest
 from .utils import generate_otp
 
 
-def send_otp_validate(phone_number, otp_type):
+def validate_send_otp(phone_number, otp_type):
     otp_request, _ = OTPRequest.objects.get_or_create(
         phone_number=phone_number
     )

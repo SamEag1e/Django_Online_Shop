@@ -2,7 +2,7 @@ from shared.messages import get_res_obj
 
 
 # ---------------------------------------------------------------------
-def phone_number_validate(phone_number):
+def validate_phone_number(phone_number):
     if not phone_number:
         return get_res_obj(False, "phone_not_given")
 

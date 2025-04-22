@@ -163,3 +163,4 @@ cython_debug/
 0_venv/
 media/
 logs/
+.vscode/

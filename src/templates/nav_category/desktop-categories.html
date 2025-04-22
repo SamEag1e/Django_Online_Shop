@@ -6,7 +6,7 @@
             {{category.name }} {% if category.children %} <i class="bi bi-chevron-left"></i> {% endif %}
         </a>
         {% if category.children %}
-            {% include 'website/desktop-categories.html' with categories=category.children is_root=False %}
+        {% include 'nav_category/desktop-categories.html' with categories=category.children is_root=False %}
         {% endif %}
     </li>
     {% endfor %}
