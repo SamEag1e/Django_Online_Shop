@@ -1,0 +1,34 @@
+{% extends 'login/base.html' %}
+{% load static %}
+
+
+{% block title %}
+{% if "website-manager" in request.path %}
+فروشگاه بهزاد | پنل ادمین
+{% else %}
+ورود - ثبت نام | فروشگاه بهزاد
+{% endif %}
+{% endblock %}
+
+{% block body_class %}login_body{% endblock %}
+{% block body_id %}login-page{% endblock %}
+
+{% block content %}
+<form {% if 'website-manager' in request.path %} action="{% url 'admin_login'%}" {% else %}
+    action="{% url 'customer_login' %}" {% endif %} method="POST">
+    {% csrf_token %}
+
+    <div class="comment-item mb-3">
+        <input type="tel" name="phone_number" class="form-control" id="floatingInputPhone" placeholder="09123456789" {%
+            if request.session.phone_number %} value="{{ request.session.phone_number }}" {% else %} value="" {% endif
+            %} required oninvalid="this.setCustomValidity('شماره موبایل خود را وارد کنید')"
+            oninput="this.setCustomValidity('')">
+        <label for="floatingInputPhone" class="form-label label-float">شماره موبایل خود را وارد کنید</label>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success w-100 mt-4 btn-login">ورود به سایت</button>
+    </div>
+</form>
+
+{% endblock %}

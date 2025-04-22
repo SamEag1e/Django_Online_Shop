@@ -9,14 +9,14 @@ from .utils import phone_number_validate
 
 
 def profile(request):
-    return render(request, "website/panel/profile.html")
+    return render(request, "panel/profile.html")
 
 
 def edit_profile(request):
     if not request.method == "POST":
-        return render(request, "website/panel/profile-edit.html")
+        return render(request, "panel/profile-edit.html")
 
-    return render(request, "website/panel/profile-edit.html")
+    return render(request, "panel/profile-edit.html")
 
 
 def customer_logout(request):
