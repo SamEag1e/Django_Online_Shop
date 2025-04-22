@@ -1,6 +1,11 @@
-{% extends 'login/base.html' %}
+{% extends 'base/auth-base.html' %}
 {% load static %}
-{% block title %}کد یکبارمصرف | فروشگاه بهزاد{% endblock %}
+
+
+{% block title %}
+کد یکبارمصرف | بیوتی پلاس
+{% endblock %}
+
 {% block body_class %}otp_body{% endblock %}
 {% block body_id %}otp-page{% endblock %}
 
@@ -9,8 +14,7 @@
     یک کد برای شما پیامک شد لطفا آن را وارد کنید
 </div>
 
-<form {% if 'website-manager' in request.path %} action="{% url 'admin_otp_check'%}" {% else %}
-    action="{% url 'customer_otp_check' %}" {% endif %} method="POST">
+<form action="{% url 'customer_otp_check' %}" method="POST">
     {% csrf_token %}
 
     <div id="otp-input">
@@ -29,10 +33,8 @@
         <input id="otp-value" type="hidden" name="otp" />
     </div>
 
-    <!-- Countdown timer HTML -->
     <div class="countDownContainer">
-        <div id="config" {% if 'website-manager' in request.path %} data-customer-login-url="{% url 'admin_login' %}" {%
-            else %} data-customer-login-url="{% url 'customer_login' %}" {% endif %}>
+        <div id="config" data-customer-login-url="{% url 'customer_login' %}">
         </div>
 
         <div class="countdown-bar" id="countdownB">
@@ -48,7 +50,7 @@
 
 {% endblock %}
 {% block extra_js %}
-<script src='{% static "website/js/plugin/otp-sms/otp-input.js" %}'></script>
-<script src='{% static "website/js/plugin/otp-loader/script.js" %}'></script>
-<script src='{% static "website/js/otp.js" %}'></script>
+<script src='{% static "js/plugin/otp-sms/otp-input.js" %}'></script>
+<script src='{% static "js/plugin/otp-loader/script.js" %}'></script>
+<script src='{% static "js/otp.js" %}'></script>
 {% endblock %}

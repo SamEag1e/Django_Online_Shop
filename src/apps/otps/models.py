@@ -13,7 +13,7 @@ class OTPRequest(models.Model):
     type = models.CharField(max_length=20, choices=OTP_TYPE_CHOICES)
     code = models.CharField(max_length=6, blank=True, null=True)
     attemps = models.PositiveIntegerField(default=0)
-    cheks = models.PositiveIntegerField(default=0)
+    checks = models.PositiveIntegerField(default=0)
     expiry = models.DateTimeField(default=default_otp_expiry)
     attemps_expiry = models.DateTimeField(default=default_otp_attemps_expiry)
 

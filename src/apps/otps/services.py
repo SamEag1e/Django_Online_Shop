@@ -10,7 +10,7 @@ def send_otp_validate(phone_number, otp_type):
         phone_number=phone_number
     )
 
-    if otp_request.attemps >= 3 and now() < otp_request.attemps_expiry:
+    if otp_request.attemps >= 3 and otp_request.attemps_expiry > now():
         return get_res_obj(False, "otp_send_attemps_expired")
 
     if now() >= otp_request.attemps_expiry:
@@ -19,7 +19,7 @@ def send_otp_validate(phone_number, otp_type):
     otp_request.type = otp_type
     otp_request.checks = 0
     otp_request.attemps += 1
-    otp_request.attemps_expiry = now() + timedelta(minutes=30)
+    otp_request.attemps_expiry = now() + timedelta(minutes=5)
     otp_request.code = generate_otp()
     otp_request.expiry = now() + timedelta(minutes=5)
     otp_request.save()
@@ -50,7 +50,7 @@ def verify_otp(phone_number, otp_code, otp_type):
         return get_res_obj(False, "otp_attemps_expired")
 
     if otp_request.code != otp_code:
-        return get_res_obj(False, "otp_otp_invalid")
+        return get_res_obj(False, "otp_invalid")
 
     otp_request.delete()
     return get_res_obj(True, "otp_verify_success")
