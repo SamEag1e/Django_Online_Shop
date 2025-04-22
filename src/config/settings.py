@@ -11,12 +11,15 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(os.path.join(BASE_DIR, "apps"))
 
 
 load_dotenv()
@@ -32,7 +35,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# AUTH_USER_MODEL = "apps.accounts.CustomUser"
+AUTH_USER_MODEL = "accounts.CustomUser"
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 SESSION_COOKIE_AGE = 7 * 24 * 60 * 60  # One week
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
@@ -47,6 +50,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "accounts",
+    "otps",
 ]
 
 MIDDLEWARE = [
