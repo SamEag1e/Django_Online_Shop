@@ -83,11 +83,11 @@
                         </div>
                         {% if request.user.is_authenticated %}
                         <div class="header-btn-login-responsive d-lg-block d-block">
-                            <a href="{% url 'customer_logout' %}" class="btn"><i class="bi bi-person-fill fs-1"></i></a>
+                            <a href="{% url 'user_logout' %}" class="btn"><i class="bi bi-person-fill fs-1"></i></a>
                         </div>
                         {% else%}
                         <div class="header-btn-login d-lg-block d-none">
-                            <a href="{% url 'customer_login' %}" class="btn"><i class="bi bi-person "></i> ورود / ثبت
+                            <a href="{% url 'user_login' %}" class="btn"><i class="bi bi-person "></i> ورود / ثبت
                                 نام</a>
                         </div>
                         <div class="header-btn-login-responsive d-lg-none d-block">

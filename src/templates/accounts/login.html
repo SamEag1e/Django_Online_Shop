@@ -10,7 +10,7 @@
 {% block body_id %}login-page{% endblock %}
 
 {% block content %}
-<form action="{% url 'customer_login' %}" method="POST">
+<form action="{% url 'user_login' %}" method="POST">
     {% csrf_token %}
 
     <div class="comment-item mb-3">

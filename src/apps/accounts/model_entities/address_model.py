@@ -6,7 +6,9 @@ User = get_user_model()
 
 class Address(models.Model):
     label = models.CharField(max_length=50)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="addresses"
+    )
     province = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     address = models.TextField()

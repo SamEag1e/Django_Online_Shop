@@ -14,7 +14,7 @@
     یک کد برای شما پیامک شد لطفا آن را وارد کنید
 </div>
 
-<form action="{% url 'customer_otp_check' %}" method="POST">
+<form action="{% url 'user_otp_check' %}" method="POST">
     {% csrf_token %}
 
     <div id="otp-input">
@@ -34,7 +34,7 @@
     </div>
 
     <div class="countDownContainer">
-        <div id="config" data-customer-login-url="{% url 'customer_login' %}">
+        <div id="config" data-customer-login-url="{% url 'user_login' %}">
         </div>
 
         <div class="countdown-bar" id="countdownB">

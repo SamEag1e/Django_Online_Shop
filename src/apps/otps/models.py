@@ -4,7 +4,7 @@ from .utils import default_otp_attemps_expiry, default_otp_expiry
 
 class OTPRequest(models.Model):
     OTP_TYPE_CHOICES = [
-        ("customer_login", "Customer Login"),
+        ("user_login", "User Login"),
         ("admin_login", "Admin Login"),
         ("admin_register", "Admin Register"),
         ("password_change", "Password change"),

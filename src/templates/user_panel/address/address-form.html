@@ -1,0 +1,102 @@
+{% extends "base/panel-base.html" %}
+{% load static %}
+
+
+{% block panel_content %}
+<div class="panel-header mb-3">
+    <div class="content-box">
+        <div class="container-fluid">
+            <div class="row gy-5 align-items-center">
+                <div class="col-md-6 col-8">
+                    <div class="d-flex align-items-center">
+                        <h6> امیر عزیز به پنل کاربری خوش آمدید</h6>
+                    </div>
+                </div>
+                <div class="col-md-3 col-4">
+                    <div class="panel-alert d-flex justify-content-end">
+                        <i class="bi bi-bell pointer"></i>
+                        <span class="count-item rounded-circle">0</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="d-flex align-items-center panel-profile">
+                        <img src="assets/img/user.png" class="img-fluid img-profile-panel rounded-circle me-3 shadow-md" alt="">
+                        <div class="d-grid gap-2">
+                            <h6 class="font-14 main-color-one-color">حساب کاربری من</h6>
+                            <div class="d-flex align-items-center">
+                                <h6 class="font-14">
+                                    امیر رضایی</h6>
+                                <a href="" class="ms-2"><i class="bi bi-pencil-square"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slider-title mt-4">
+    <div class="slider-title-desc">
+        <div class="slider-title-title pb-4">
+            <h2 class="h1"><span class="title-font main-color-one-color">اضافه کردن</span>آدرس </h2>
+        </div>
+    </div>
+</div>
+
+<div class="penel-form">
+    <div class="content-box">
+        <div class="container-fluid">
+            <form action="">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="comment-item mb-3">
+                            <input type="text" class="form-control" id="floatingInputStreet" placeholder="نام خانوادگی خود را وارد کنید ...">
+                            <label for="floatingInputStreet" class="form-label label-float fw-bold">آدرس
+                                خیابان</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="comment-item" for="floatingInputOstan">
+                            <label class="label-float fw-bold">استان <span class="text-danger">*</span></label>
+
+                            <select name="" id="floatingInputOstan" class="form-select">
+                                <option value="">تهران</option>
+                                <option value="">اصفهان</option>
+                                <option value="">مشهد</option>
+                                <option value="">شیراز</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="comment-item">
+                            <label class="label-float fw-bold" for="floatingInputCity">شهر <span class="text-danger">*</span></label>
+
+                            <select name="" id="floatingInputCity" class="form-select">
+                                <option value="">کرج</option>
+                                <option value="">خرم آباد</option>
+                                <option value="">نور آباد</option>
+                                <option value="">الشتر</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="comment-item mb-3">
+                            <textarea class="form-control py-3" id="floatingInputDesc" rows="5" placeholder="اگر سفارش شما توضیح خاصی دارد اینجا وارد کنید"></textarea>
+                            <label for="floatingInputDesc" class="form-label label-float fw-bold">توضیحات
+                                سفارش</label>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn main-color-one-bg border-0 px-5 py-3">ثبت آدرس</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
