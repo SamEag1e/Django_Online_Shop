@@ -1,0 +1,13 @@
+<div class="bread-crumb py-4">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+            <ol class="breadcrumb mb-0">
+                {% block bread_crumb %}
+                {% endblock %}
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Needs context variable to be able to rendered into layouts. -->
+ <!-- Otherwise, just put it into layouts and then fill the block in pages. -->

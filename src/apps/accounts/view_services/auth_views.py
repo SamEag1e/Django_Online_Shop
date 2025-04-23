@@ -14,7 +14,7 @@ def user_area(request):
 
 def user_profile(request):
     return render(
-        request, "user_panel/profile/profile.html", {"section": "profile"}
+        request, "pages/accounts/dashboard.html", {"section": "profile"}
     )
 
 
@@ -37,7 +37,7 @@ def user_login(request):
         return redirect("home")
 
     if not request.method == "POST":
-        return render(request, "accounts/login.html")
+        return render(request, "pages/accounts/login.html")
 
     phone_number = request.POST.get("phone_number")
     validation = validate_phone_number(phone_number)
@@ -45,14 +45,14 @@ def user_login(request):
     if not validation.get("is_success"):
         messages.error(request, validation.get("msg"))
 
-        return render(request, "accounts/login.html")
+        return render(request, "pages/accounts/login.html")
 
     validation = validate_send_otp(phone_number, "user_login")
 
     if not validation.get("is_success"):
         messages.error(request, validation.get("msg"))
 
-        return render(request, "accounts/login.html")
+        return redirect("user_otp_check")
 
     request.session["phone_number"] = phone_number
     messages.success(request, validation.get("msg"))
@@ -65,7 +65,7 @@ def user_otp_check(request):
         return redirect("home")
 
     if not request.method == "POST":
-        return render(request, "accounts/otp-sms.html")
+        return render(request, "pages/accounts/otp-sms.html")
 
     phone_number = request.session.get("phone_number")
     otp_code = "".join(
@@ -86,6 +86,6 @@ def user_otp_check(request):
 
     messages.error(request, validation.get("msg"))
     if validation.get("msg_key") == "otp_invalid":
-        return render(request, "accounts/otp-sms.html")
+        return render(request, "pages/accounts/otp-sms.html")
 
     return redirect("user_login")

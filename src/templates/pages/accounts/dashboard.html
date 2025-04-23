@@ -1,0 +1,13 @@
+{% extends "layouts/dashboard.html" %}
+
+{% block bread_crumb %}
+<li class="breadcrumb-item"><a href="#" class="font-14 text-muted-two">خانه</a></li>
+<li class="breadcrumb-item"><a href="#" class="font-14 text-muted-two">فروشگاه</a></li>
+<li class="breadcrumb-item active main-color-one-color font-14 fw-bold" aria-current="page">ناحیه کاربری</li>
+{% endblock %}
+
+{% block dashboard_content %}
+
+{% include "partials/user-panel/custom-user-detail.html" %}
+
+{% endblock %}

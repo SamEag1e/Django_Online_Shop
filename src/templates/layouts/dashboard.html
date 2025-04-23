@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %} ناحیه کابری | بیوتی پلاس {% endblock %}
+
+
+{% block content %}
+
+{% include "partials/global/notification.html" %}
+{% include "partials/global/header.html" %}
+
+<div class="bread-crumb py-4">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+            <ol class="breadcrumb mb-0">
+                {% block bread_crumb %}
+                {% endblock %}
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container-fluid">
+        
+        <div class="custom-filter d-lg-none d-block">
+            <button class="btn btn-filter-float border-0 main-color-two-bg shadow-box px-4 rounded-3 position-fixed"
+                style="z-index: 999;bottom:80px;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight">
+                <i class="bi bi-list font-20 fw-bold text-white"></i>
+                <span class="d-block font-14 text-white">منو</span>
+            </button>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title">منو</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body" id="mobile_user_panel">
+
+                    {% include 'partials/user-panel/panel-base-nav.html' %}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel position-relative">
+            <div class="row gy-4">
+                <div class="col-lg-3 d-lg-block d-none" id="desktop_user_panel">
+
+                    {% include 'partials/user-panel/panel-base-nav.html' %}
+
+                </div>
+                <div class="col-lg-9">
+                    <div class="position-sticky top-0" id="panel_content">
+
+                        {% include "partials/user-panel/panel-nav-header.html" %}
+
+                        <div id="panel-content-loader" class="loader-overlay d-none">
+                            <div class="loader">
+                            </div>
+                        </div>
+
+                        {% block dashboard_content %}
+                        {% endblock %}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include "partials/global/footer.html" %}
+        {% include "partials/global/mobile-bottom-menu.html" %}
+        {% include "partials/global/cart-canvas.html" %}
+        {% include "partials/global/contact-us-floating.html" %}
+    </div>
+</div>
+{% endblock %}

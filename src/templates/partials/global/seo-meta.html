@@ -1,0 +1,22 @@
+{% load static %}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>{% block title %}بیوتی پلاس - فروشگاه لوازم آرایشی و بهداشتی{% endblock %}</title>
+<meta name="description" content="{% block meta_description %}خرید محصولات اورجینال سراوی، اوردینری، کلینیک و سایر برندهای معتبر با ارسال سریع و تضمین اصالت{% endblock %}">
+<meta name="keywords" content="{% block meta_keywords %}لوازم آرایشی, لوازم بهداشتی, خرید سراوی, اوردینری, فروشگاه زیبایی آنلاین{% endblock %}">
+<meta name="author" content="BeautyPlus Team">
+
+<meta property="og:title" content="{% block og_title %}بیوتی پلاس - خرید محصولات زیبایی{% endblock %}">
+<meta property="og:description" content="{% block og_description %}خرید آسان محصولات زیبایی و بهداشتی از برندهای معروف با تضمین اصالت{% endblock %}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+<meta property="og:image" content="{% block og_image %}{% static 'img/og-image.jpg' %}{% endblock %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% block twitter_title %}بیوتی پلاس - فروشگاه زیبایی آنلاین{% endblock %}">
+<meta name="twitter:description" content="{% block twitter_description %}محصولات آرایشی و بهداشتی اورجینال از برندهای برتر{% endblock %}">
+<meta name="twitter:image" content="{% block twitter_image %}{% static 'img/og-image.jpg' %}{% endblock %}">
+
+<meta name="theme-color" content="#f4f5f9">

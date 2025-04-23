@@ -1,0 +1,15 @@
+{% if categories %}
+<ul class={% if is_root %} "main-ul" {% else %} "sub-ul" {% endif %}>
+    {% for category in categories %}
+    <li {% if category.children %} class="position-relative" {% endif %}>
+        <a href="{% url 'product_list_user' %}?category={{ category.slug }}">
+            {{category.name }} {% if category.children %} <i class="bi bi-chevron-left"></i> {% endif %}
+        </a>
+        {% if category.children %}
+        {% include 'partials/nav-category/desktop-categories.html' with categories=category.children is_root=False %}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+

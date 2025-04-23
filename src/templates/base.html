@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="Fa_IR" dir="rtl">
+
+<head>
+
+    {% include "partials/global/seo-meta.html" %}
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
+
+    {% include "partials/global/global-css.html" %}
+
+    {% block extra_head %}{% endblock %}
+
+</head>
+
+<body>
+    {% block content %}{% endblock %}
+
+    {% include "partials/global/global-script.html" %}
+    {% block extra_script %}{% endblock %}
+
+</body>
