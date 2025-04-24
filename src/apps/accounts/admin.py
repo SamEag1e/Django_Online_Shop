@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from shared.admin_utils import ReadOnlyAdmin, ReadOnlyInlineAdmin
 
-from .models import CustomUser, Address, BankCart
+from .models import CustomUser, Address
 
 
 @admin.register(Address)
@@ -12,17 +12,8 @@ class AddressAdmin(ReadOnlyAdmin):
     pass
 
 
-@admin.register(BankCart)
-class BankCartAdmin(ReadOnlyAdmin):
-    pass
-
-
 class AddressInline(ReadOnlyInlineAdmin):
     model = Address
-
-
-class BankCartInline(ReadOnlyInlineAdmin):
-    model = BankCart
 
 
 @admin.register(CustomUser)
@@ -82,7 +73,7 @@ class CustomUserAdmin(BaseUserAdmin):
         ),
     )
 
-    inlines = [AddressInline, BankCartInline]
+    inlines = [AddressInline]
 
     def get_readonly_fields(self, request, obj=None):
         # Make phone_number read-only in both add and edit

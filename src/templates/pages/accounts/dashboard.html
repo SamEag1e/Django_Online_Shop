@@ -8,6 +8,36 @@
 
 {% block dashboard_content %}
 
-{% include "partials/user-panel/custom-user-detail.html" %}
+{% if section == "dashboard" %}
+    {% include "partials/user-panel/custom-user-detail.html" %}
+
+{% elif section == "order-list" %}
+    {% include "partials/user-panel/order-list.html" %}
+
+{% elif section == "order-detail" %}
+    {% include "partials/user-panel/order-detail.html" %}
+
+{% elif section == "ticket-list" %}
+    {% include "partials/user-panel/ticket-list.html" %}
+
+{% elif section == "ticket-detail" %}
+    {% include "partials/user-panel/ticket-detail.html" %}
+
+{% elif section == "ticket-form" %}
+    {% include "partials/user-panel/ticket-form.html" %}
+
+{% elif section == "alert-list" %}
+    {% include "partials/user-panel/alert-list.html" %}
+
+{% elif section == "alert-detail" %}
+    {% include "partials/user-panel/alert-detail.html" %}
+
+{% elif section == "favorite-list" %}
+    {% include "partials/user-panel/favorite-list.html" %}
+
+{% elif section == "edit-profile" %}
+    {% include "partials/user-panel/custom-user-form.html" %}
+
+{% endif %}
 
 {% endblock %}

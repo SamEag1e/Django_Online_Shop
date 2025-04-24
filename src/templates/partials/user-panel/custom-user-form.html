@@ -13,50 +13,57 @@
                 <div class="row g-4">
                     <div class="col-md-12">
                         <div class="comment-item mb-3">
-                            <input type="text" class="form-control text-center fw-bold fs-5 bg-light ltr-text" id="floatingInputTel" value="0914***6078" readonly>
+                            <input type="text" value="{{request.user.phone_number}}"
+                             class="form-control text-center fw-bold fs-5 bg-light ltr-text" id="floatingInputTel" readonly>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="comment-item mb-3">
-                            <input type="text" class="form-control" id="floatingInputName" placeholder="نام خود را وارد کنید...">
+                            <input type="text" name= "first_name" value="{{ request.user.first_name }}"
+                             class="form-control" id="floatingInputName" placeholder="نام خود را وارد کنید...">
                             <label for="floatingInputName" class="form-label label-float fw-bold font-16">نام</label>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="comment-item mb-3">
-                            <input type="text" class="form-control" id="floatingInputLName" placeholder="نام خانوادگی خود را وارد کنید ...">
+                            <input type="text" name= "last_name" value="{{ request.user.last_name }}" 
+                             class="form-control" id="floatingInputLName" placeholder="نام خانوادگی خود را وارد کنید ...">
                             <label for="floatingInputLName" class="form-label label-float fw-bold">نام خانوادگی </label>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="comment-item" for="floatingInputOstan">
-                            <label class="label-float fw-bold">استان</label>
-                            
-                            <select name="" id="floatingInputOstan" class="form-select">
-                                <option value="">تهران</option>
-                                <option value="">اصفهان</option>
-                                <option value="">مشهد</option>
-                                <option value="">شیراز</option>
-                            </select>
-                            
+                    <div class="col-md-4">
+                        <div class="comment-item mb-3">
+                            <input type="text" name= "email" value="{{ request.user.email }}"
+                             class="form-control" id="floatingInputEmail" placeholder="ایمیل خود را وارد کنید...">
+                            <label for="floatingInputEmail" class="form-label label-float fw-bold font-16">ایمیل</label>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="comment-item">
-                            <label class="label-float fw-bold" for="floatingInputCity">شهر</label>
-                            <form action="">
-                                <select name="" id="floatingInputCity" class="form-select">
-                                    <option value="">کرج</option>
-                                    <option value="">خرم آباد</option>
-                                    <option value="">نور آباد</option>
-                                    <option value="">الشتر</option>
-                                </select>
-                            </form>
+                    <h6 class="text-center"> آدرس اصلی حساب شما</h6>
+                    <div class="col-md-4">
+                        <div class="comment-item mb-3">
+                            <input type="text" name= "province" value="{{ request.user.main_address.province }}"
+                                class="form-control" id="floatingInputProvince" placeholder="استان را وارد کنید...">
+                            <label for="floatingInputProvince" class="form-label label-float fw-bold font-16">استان</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="comment-item mb-3">
+                            <input type="text" name= "city" value="{{ request.user.main_address.city }}"
+                                class="form-control" id="floatingInputCity" placeholder="شهر را وارد کنید...">
+                            <label for="floatingInputCity" class="form-label label-float fw-bold font-16">شهر</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="comment-item mb-3">
+                            <input type="text" name= "postal_code" value="{{ request.user.main_address.postal_code }}"
+                                class="form-control" id="floatingInputPostalCode" placeholder="کدپستی را وارد کنید...">
+                            <label for="floatingInputPostalCode" class="form-label label-float fw-bold font-16">کدپستی</label>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="comment-item mb-3">
-                            <input type="text" class="form-control" id="floatingInputStreet" placeholder=" آدرس خود را وارد کنید ...">
+                            <input type="text" name= "address" value="{{ request.user.main_address.address }}"
+                             class="form-control" id="floatingInputStreet" placeholder=" آدرس را وارد کنید ...">
                             <label for="floatingInputStreet" class="form-label label-float fw-bold">آدرس</label>
                         </div>
                     </div>
